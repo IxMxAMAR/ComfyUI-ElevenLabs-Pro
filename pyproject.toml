@@ -1,0 +1,19 @@
+[project]
+name = "comfyui-elevenlabs-pro"
+description = "Full-featured ElevenLabs integration for ComfyUI - TTS, STS, SFX, Music, Voice Cloning"
+version = "2.0.0"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "soundfile",
+    "scipy",
+]
+
+[project.urls]
+Repository = "https://github.com/IxMxAMAR/ComfyUI-ElevenLabs-Pro"
+
+[tool.comfy]
+PublisherId = "ixmxamar"
+DisplayName = "ComfyUI-ElevenLabs-Pro"
+Icon = ""
