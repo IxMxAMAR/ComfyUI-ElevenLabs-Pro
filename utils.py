@@ -14,8 +14,12 @@ import tempfile
 import numpy as np
 import torch
 
-from .shared.retry import api_request_with_retry
-from .shared.errors import APIPermanentError
+try:
+    from .shared.retry import api_request_with_retry
+    from .shared.errors import APIPermanentError
+except ImportError:
+    from shared.retry import api_request_with_retry
+    from shared.errors import APIPermanentError
 
 # ============================================================
 # Constants
@@ -23,11 +27,16 @@ from .shared.errors import APIPermanentError
 
 ELEVENLABS_API_BASE = "https://api.elevenlabs.io"
 
+# Verified from /v1/models endpoint. See README for character limits.
 TTS_MODELS = [
-    "eleven_v3",
-    "eleven_multilingual_v2",
-    "eleven_flash_v2_5",
-    "eleven_flash_v2",
+    "eleven_v3",                  # Latest flagship, expressive, supports v3 audio tags
+    "eleven_multilingual_v2",     # Stable multilingual, ~32 languages
+    "eleven_flash_v2_5",          # Fast multilingual (lowest latency)
+    "eleven_turbo_v2_5",          # NEW: Multilingual turbo (better than flash, faster than v2)
+    "eleven_flash_v2",            # English-only fast
+    "eleven_turbo_v2",            # English-only turbo (legacy)
+    "eleven_multilingual_v1",     # Legacy multilingual
+    "eleven_monolingual_v1",      # Legacy English (Eleven v1)
 ]
 
 STS_MODELS = [
@@ -181,7 +190,11 @@ _MODEL_CHAR_LIMITS = {
     "eleven_v3": 5000,
     "eleven_multilingual_v2": 10000,
     "eleven_flash_v2_5": 40000,
+    "eleven_turbo_v2_5": 40000,
     "eleven_flash_v2": 40000,
+    "eleven_turbo_v2": 30000,
+    "eleven_multilingual_v1": 10000,
+    "eleven_monolingual_v1": 5000,
 }
 
 # ============================================================
