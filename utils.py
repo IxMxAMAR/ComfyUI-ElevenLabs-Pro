@@ -316,6 +316,9 @@ def fetch_all_voices(api_key: str, force_refresh: bool = False) -> list:
         if not data.get("has_more"):
             break
         next_token = data.get("next_page_token")
+        if not next_token:
+            # Defensive: API said has_more=True but gave us no next token. Stop instead of looping forever.
+            break
 
     _voice_cache[cache_key] = voices
     _voice_cache_time[cache_key] = now

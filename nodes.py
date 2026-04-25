@@ -1,7 +1,7 @@
 """
-ElevenLabs nodes for ComfyUI-ElevenLabs-Pro.
+ElevenLabs nodes for ComfyUI-AI-Suite.
 
-15 nodes total:
+15 nodes total (10 ported + 5 new):
   Voice:   VoiceSelector, FetchVoices, VoiceClone, VoiceDesign, VoiceCreate
   TTS:     TTS, TTSTimestamps, Dialogue
   Audio:   STS, SFX, AudioIsolation, STT
@@ -11,7 +11,10 @@ ElevenLabs nodes for ComfyUI-ElevenLabs-Pro.
 
 import json
 
-from .shared.node_utils import AlwaysExecuteMixin
+try:
+    from .shared.node_utils import AlwaysExecuteMixin
+except ImportError:
+    from shared.node_utils import AlwaysExecuteMixin
 
 from .utils import (
     ELEVENLABS_API_BASE,
@@ -664,8 +667,9 @@ class ElevenLabsPro_STS(AlwaysExecuteMixin):
         data = {
             "model_id": model,
             "voice_settings": voice_settings,
-            "remove_background_noise": str(remove_background_noise).lower(),
         }
+        if remove_background_noise:
+            data["remove_background_noise"] = "true"
         if seed > 0:
             data["seed"] = str(seed)
 
@@ -800,6 +804,7 @@ class ElevenLabsPro_AudioIsolation(AlwaysExecuteMixin):
             timeout=300,
             headers={"xi-api-key": key},
             files={"audio": ("input.wav", audio_bytes, "audio/wav")},
+            params={"output_format": output_format},
         )
         check_response(resp)
 
@@ -1170,19 +1175,19 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ElevenLabsPro_APIKey": "ElevenLabs - API Key",
-    "ElevenLabsPro_VoiceSelector": "ElevenLabs - Voice Selector",
-    "ElevenLabsPro_FetchVoices": "ElevenLabs - Fetch Voices",
-    "ElevenLabsPro_VoiceClone": "ElevenLabs - Voice Clone",
-    "ElevenLabsPro_VoiceDesign": "ElevenLabs - Voice Design",
-    "ElevenLabsPro_VoiceCreate": "ElevenLabs - Voice Create",
-    "ElevenLabsPro_TTS": "ElevenLabs - Text to Speech",
-    "ElevenLabsPro_TTSTimestamps": "ElevenLabs - TTS with Timestamps",
-    "ElevenLabsPro_STS": "ElevenLabs - Speech to Speech",
-    "ElevenLabsPro_SFX": "ElevenLabs - Sound Effects",
-    "ElevenLabsPro_AudioIsolation": "ElevenLabs - Audio Isolation",
-    "ElevenLabsPro_STT": "ElevenLabs - Speech to Text",
-    "ElevenLabsPro_Dialogue": "ElevenLabs - Text to Dialogue",
-    "ElevenLabsPro_Music": "ElevenLabs - Music Generation",
-    "ElevenLabsPro_AccountInfo": "ElevenLabs - Account Info",
+    "ElevenLabsPro_APIKey": "ElevenLabs Pro - API Key",
+    "ElevenLabsPro_VoiceSelector": "ElevenLabs Pro - Voice Selector",
+    "ElevenLabsPro_FetchVoices": "ElevenLabs Pro - Fetch Voices",
+    "ElevenLabsPro_VoiceClone": "ElevenLabs Pro - Voice Clone",
+    "ElevenLabsPro_VoiceDesign": "ElevenLabs Pro - Voice Design",
+    "ElevenLabsPro_VoiceCreate": "ElevenLabs Pro - Voice Create",
+    "ElevenLabsPro_TTS": "ElevenLabs Pro - Text to Speech",
+    "ElevenLabsPro_TTSTimestamps": "ElevenLabs Pro - TTS with Timestamps",
+    "ElevenLabsPro_STS": "ElevenLabs Pro - Speech to Speech",
+    "ElevenLabsPro_SFX": "ElevenLabs Pro - Sound Effects",
+    "ElevenLabsPro_AudioIsolation": "ElevenLabs Pro - Audio Isolation",
+    "ElevenLabsPro_STT": "ElevenLabs Pro - Speech to Text",
+    "ElevenLabsPro_Dialogue": "ElevenLabs Pro - Text to Dialogue",
+    "ElevenLabsPro_Music": "ElevenLabs Pro - Music Generation",
+    "ElevenLabsPro_AccountInfo": "ElevenLabs Pro - Account Info",
 }
