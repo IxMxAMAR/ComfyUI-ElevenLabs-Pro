@@ -1,1 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.tox/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Build / packaging
+build/
+dist/
 node.zip
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local
+*.local
+.env

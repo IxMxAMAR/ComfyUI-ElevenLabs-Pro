@@ -10,6 +10,7 @@ from .errors import (
     APIPermanentError,
     APIQuotaError,
     parse_error_response,
+    scrub_secrets,
 )
 
 from .retry import (
@@ -19,6 +20,8 @@ from .retry import (
 
 from .node_utils import (
     AlwaysExecuteMixin,
+    InputCacheMixin,
+    redact_secrets,
 )
 
 from .auth import (
@@ -44,11 +47,14 @@ __all__ = [
     "APIPermanentError",
     "APIQuotaError",
     "parse_error_response",
+    "scrub_secrets",
     # retry
     "api_request_with_retry",
     "download_file",
     # node_utils
     "AlwaysExecuteMixin",
+    "InputCacheMixin",
+    "redact_secrets",
     # auth
     "BaseAPIKeyNode",
     "DualKeyAPIKeyNode",
