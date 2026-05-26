@@ -1,0 +1,457 @@
+{
+  "last_node_id": 6,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1,
+            2,
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_Music",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        294
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "music",
+        "Node name for S&R": "ElevenLabsPro_Music"
+      },
+      "widgets_values": [
+        "Upbeat podcast intro jingle, modern, 8 seconds, energetic, no vocals",
+        "music_v1",
+        8.0,
+        0,
+        true,
+        true,
+        false,
+        false,
+        "",
+        "mp3_44100_192"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ElevenLabsPro_Dialogue",
+      "pos": [
+        430,
+        374
+      ],
+      "size": [
+        320,
+        634
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "dialogue",
+        "Node name for S&R": "ElevenLabsPro_Dialogue"
+      },
+      "widgets_values": [
+        "Welcome to the show! Today we are discussing the future of audio AI.",
+        "21m00Tcm4TlvDq8ikWAM",
+        "eleven_v3",
+        "That is right. The progress in voice synthesis has been extraordinary this year.",
+        "AZnzlk1XvdvUeBnXmlld",
+        "I think the most exciting part is how natural the voices sound now.",
+        "EXAVITQu4vr4xnSDxMaL",
+        "Absolutely. And accessibility is a huge win \u2014 people who struggled with text can now listen.",
+        "MF3mGyEYCl7XYWbV9V6O",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        0.5,
+        "auto",
+        "Auto Detect",
+        "mp3_44100_192",
+        0,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ElevenLabsPro_SFX",
+      "pos": [
+        430,
+        1038
+      ],
+      "size": [
+        320,
+        234
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sfx",
+        "Node name for S&R": "ElevenLabsPro_SFX"
+      },
+      "widgets_values": [
+        "A short whoosh transition sound effect, professional, clean",
+        "eleven_text_to_sound_v2",
+        1.5,
+        0.3,
+        false,
+        "mp3_44100_192",
+        0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ElevenLabsPro_AudioConcat",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        192
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio1",
+          "type": "AUDIO",
+          "link": 4
+        },
+        {
+          "name": "audio2",
+          "type": "AUDIO",
+          "link": 5
+        },
+        {
+          "name": "audio3",
+          "type": "AUDIO",
+          "link": 6
+        },
+        {
+          "name": "audio4",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio5",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio6",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio7",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio8",
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "concat",
+        "Node name for S&R": "ElevenLabsPro_AudioConcat"
+      },
+      "widgets_values": [
+        0.5
+      ]
+    },
+    {
+      "id": 6,
+      "type": "PreviewAudio",
+      "pos": [
+        1190,
+        50
+      ],
+      "size": [
+        320,
+        74
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 7
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "recipe_id": "preview",
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      0,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      1,
+      0,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      2,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ],
+    [
+      5,
+      4,
+      0,
+      5,
+      1,
+      "AUDIO"
+    ],
+    [
+      6,
+      3,
+      0,
+      5,
+      2,
+      "AUDIO"
+    ],
+    [
+      7,
+      5,
+      0,
+      6,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Intro",
+      "bounding": [
+        410,
+        0,
+        360,
+        364
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Dialogue",
+      "bounding": [
+        410,
+        324,
+        360,
+        704
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Transition",
+      "bounding": [
+        410,
+        988,
+        360,
+        304
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Assembly",
+      "bounding": [
+        790,
+        0,
+        360,
+        262
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Preview",
+      "bounding": [
+        1170,
+        0,
+        360,
+        144
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Produce a complete audio episode: intro music, a 4-speaker dialogue, and a transition SFX, all concatenated into one polished output.",
+    "title": "ElevenLabs Pro \u2014 Dialogue Episode",
+    "tier": 2,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

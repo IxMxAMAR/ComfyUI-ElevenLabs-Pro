@@ -1,0 +1,707 @@
+{
+  "last_node_id": 9,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_VoiceSelector",
+      "pos": [
+        50,
+        174
+      ],
+      "size": [
+        320,
+        114
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "links": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "voice",
+        "Node name for S&R": "ElevenLabsPro_VoiceSelector"
+      },
+      "widgets_values": [
+        "Rachel",
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ElevenLabsPro_TTS",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        448
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "voice_id"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "raw_response_info",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "recipe_id": "tts1",
+        "Node name for S&R": "ElevenLabsPro_TTS"
+      },
+      "widgets_values": [
+        "Chapter One. The morning sun crept over the horizon, casting long golden shadows across the quiet village. Thomas stood at his window, coffee in hand, watching the world slowly wake.",
+        "eleven_v3",
+        0.5,
+        0.75,
+        0.0,
+        1.0,
+        true,
+        "Auto Detect",
+        "auto",
+        "mp3_44100_192",
+        0,
+        "",
+        "",
+        false,
+        true,
+        ""
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ElevenLabsPro_TTS",
+      "pos": [
+        430,
+        528
+      ],
+      "size": [
+        320,
+        448
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "link": 6,
+          "widget": {
+            "name": "voice_id"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "raw_response_info",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "recipe_id": "tts2",
+        "Node name for S&R": "ElevenLabsPro_TTS"
+      },
+      "widgets_values": [
+        "He had returned to Ashford after fifteen years away, and nothing felt quite as he had remembered it. The bakery was still there, but Mrs. Henderson had long since retired.",
+        "eleven_v3",
+        0.5,
+        0.75,
+        0.0,
+        1.0,
+        true,
+        "Auto Detect",
+        "auto",
+        "mp3_44100_192",
+        0,
+        "",
+        "",
+        false,
+        true,
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ElevenLabsPro_TTS",
+      "pos": [
+        430,
+        1006
+      ],
+      "size": [
+        320,
+        448
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "link": 7,
+          "widget": {
+            "name": "voice_id"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            11
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "raw_response_info",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "recipe_id": "tts3",
+        "Node name for S&R": "ElevenLabsPro_TTS"
+      },
+      "widgets_values": [
+        "A knock at the door interrupted his thoughts. He set down his cup and crossed the small room, wondering who could be calling at such an early hour.",
+        "eleven_v3",
+        0.5,
+        0.75,
+        0.0,
+        1.0,
+        true,
+        "Auto Detect",
+        "auto",
+        "mp3_44100_192",
+        0,
+        "",
+        "",
+        false,
+        true,
+        ""
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ElevenLabsPro_TTS",
+      "pos": [
+        430,
+        1484
+      ],
+      "size": [
+        320,
+        448
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "link": 8,
+          "widget": {
+            "name": "voice_id"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            12
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "raw_response_info",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "recipe_id": "tts4",
+        "Node name for S&R": "ElevenLabsPro_TTS"
+      },
+      "widgets_values": [
+        "It was Clara, his childhood friend, standing on the step with a letter in her hand and tears on her cheeks. Something had changed, and Thomas could feel it in his bones.",
+        "eleven_v3",
+        0.5,
+        0.75,
+        0.0,
+        1.0,
+        true,
+        "Auto Detect",
+        "auto",
+        "mp3_44100_192",
+        0,
+        "",
+        "",
+        false,
+        true,
+        ""
+      ]
+    },
+    {
+      "id": 7,
+      "type": "ElevenLabsPro_AudioConcat",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        192
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio1",
+          "type": "AUDIO",
+          "link": 9
+        },
+        {
+          "name": "audio2",
+          "type": "AUDIO",
+          "link": 10
+        },
+        {
+          "name": "audio3",
+          "type": "AUDIO",
+          "link": 11
+        },
+        {
+          "name": "audio4",
+          "type": "AUDIO",
+          "link": 12
+        },
+        {
+          "name": "audio5",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio6",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio7",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio8",
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "concat",
+        "Node name for S&R": "ElevenLabsPro_AudioConcat"
+      },
+      "widgets_values": [
+        0.8
+      ]
+    },
+    {
+      "id": 8,
+      "type": "ElevenLabsPro_AudioNormalize",
+      "pos": [
+        1190,
+        50
+      ],
+      "size": [
+        320,
+        114
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            14
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "normalize",
+        "Node name for S&R": "ElevenLabsPro_AudioNormalize"
+      },
+      "widgets_values": [
+        "rms",
+        -18.0
+      ]
+    },
+    {
+      "id": 9,
+      "type": "ElevenLabsPro_SaveAudio",
+      "pos": [
+        1570,
+        50
+      ],
+      "size": [
+        320,
+        134
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "save",
+        "Node name for S&R": "ElevenLabsPro_SaveAudio"
+      },
+      "widgets_values": [
+        "audiobook_chapter_01",
+        "mp3",
+        "audiobook"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      0,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      1,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      1,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      2,
+      0,
+      3,
+      1,
+      "STRING"
+    ],
+    [
+      6,
+      2,
+      0,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      7,
+      2,
+      0,
+      5,
+      1,
+      "STRING"
+    ],
+    [
+      8,
+      2,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      9,
+      3,
+      0,
+      7,
+      0,
+      "AUDIO"
+    ],
+    [
+      10,
+      4,
+      0,
+      7,
+      1,
+      "AUDIO"
+    ],
+    [
+      11,
+      5,
+      0,
+      7,
+      2,
+      "AUDIO"
+    ],
+    [
+      12,
+      6,
+      0,
+      7,
+      3,
+      "AUDIO"
+    ],
+    [
+      13,
+      7,
+      0,
+      8,
+      0,
+      "AUDIO"
+    ],
+    [
+      14,
+      8,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        308
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "TTS Chunks",
+      "bounding": [
+        410,
+        0,
+        360,
+        1952
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Assemble",
+      "bounding": [
+        790,
+        0,
+        360,
+        262
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Master",
+      "bounding": [
+        1170,
+        0,
+        360,
+        184
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Save",
+      "bounding": [
+        1550,
+        0,
+        360,
+        204
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Synthesise four text passages with TTS, concatenate them into one continuous audio file, normalise the levels, and save the final audiobook chapter.",
+    "title": "ElevenLabs Pro \u2014 Audiobook Pipeline",
+    "tier": 2,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

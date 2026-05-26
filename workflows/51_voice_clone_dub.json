@@ -1,0 +1,543 @@
+{
+  "last_node_id": 7,
+  "last_link_id": 9,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1,
+            2,
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "pos": [
+        50,
+        174
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            4,
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "audio_in",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ElevenLabsPro_STT",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        342
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            6,
+            7
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "language_code",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "words_json",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "recipe_id": "stt",
+        "Node name for S&R": "ElevenLabsPro_STT"
+      },
+      "widgets_values": [
+        "scribe_v1",
+        "",
+        false,
+        false,
+        0,
+        "word",
+        0,
+        0.5,
+        0.0,
+        "",
+        false
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ElevenLabsPro_VoiceClone",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        272
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "audio1",
+          "type": "AUDIO",
+          "link": 5
+        },
+        {
+          "name": "audio2",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio3",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio4",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio5",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio6",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio7",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "audio8",
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "recipe_id": "clone",
+        "Node name for S&R": "ElevenLabsPro_VoiceClone"
+      },
+      "widgets_values": [
+        "cloned_voice_dub",
+        true,
+        "",
+        true
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ElevenLabsPro_TTS",
+      "pos": [
+        1190,
+        50
+      ],
+      "size": [
+        320,
+        448
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 6,
+          "widget": {
+            "name": "text"
+          }
+        },
+        {
+          "name": "voice_id",
+          "type": "STRING",
+          "link": 8,
+          "widget": {
+            "name": "voice_id"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "raw_response_info",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "recipe_id": "tts",
+        "Node name for S&R": "ElevenLabsPro_TTS"
+      },
+      "widgets_values": [
+        "eleven_v3",
+        0.5,
+        0.9,
+        0.0,
+        1.0,
+        true,
+        "Auto Detect",
+        "auto",
+        "mp3_44100_192",
+        0,
+        "",
+        "",
+        false,
+        true,
+        ""
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ShowText",
+      "pos": [
+        1570,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 7,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "text_out",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "PreviewAudio",
+      "pos": [
+        1570,
+        174
+      ],
+      "size": [
+        320,
+        74
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 9
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "recipe_id": "audio_out",
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      0,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      1,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      2,
+      0,
+      3,
+      1,
+      "AUDIO"
+    ],
+    [
+      5,
+      2,
+      0,
+      4,
+      1,
+      "AUDIO"
+    ],
+    [
+      6,
+      3,
+      0,
+      5,
+      1,
+      "STRING"
+    ],
+    [
+      7,
+      3,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      8,
+      4,
+      0,
+      5,
+      2,
+      "STRING"
+    ],
+    [
+      9,
+      5,
+      0,
+      7,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Source",
+      "bounding": [
+        30,
+        124,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Transcribe",
+      "bounding": [
+        410,
+        0,
+        360,
+        412
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Clone",
+      "bounding": [
+        790,
+        0,
+        360,
+        342
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Dub",
+      "bounding": [
+        1170,
+        0,
+        360,
+        518
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        1550,
+        0,
+        360,
+        268
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Load source audio, transcribe it with STT, clone the speaker's voice with VoiceClone, then re-synthesise the transcript in the cloned voice for a clean, noise-free dub.",
+    "title": "ElevenLabs Pro \u2014 Voice Clone Dub",
+    "tier": 2,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

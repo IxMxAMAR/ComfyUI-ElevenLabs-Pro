@@ -1,0 +1,649 @@
+{
+  "last_node_id": 11,
+  "last_link_id": 10,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_SFX",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        234
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sfx1",
+        "Node name for S&R": "ElevenLabsPro_SFX"
+      },
+      "widgets_values": [
+        "A thunderous explosion with debris and smoke, cinematic, deep bass boom",
+        "eleven_text_to_sound_v2",
+        4.0,
+        0.5,
+        false,
+        "mp3_44100_192",
+        0
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ElevenLabsPro_SaveAudio",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        134
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "save1",
+        "Node name for S&R": "ElevenLabsPro_SaveAudio"
+      },
+      "widgets_values": [
+        "sfx_explosion",
+        "mp3",
+        "sfx_library"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ElevenLabsPro_SFX",
+      "pos": [
+        430,
+        314
+      ],
+      "size": [
+        320,
+        234
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sfx2",
+        "Node name for S&R": "ElevenLabsPro_SFX"
+      },
+      "widgets_values": [
+        "A gentle forest ambience with birdsong, wind through leaves, distant stream",
+        "eleven_text_to_sound_v2",
+        8.0,
+        0.3,
+        false,
+        "mp3_44100_192",
+        0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ElevenLabsPro_SaveAudio",
+      "pos": [
+        810,
+        214
+      ],
+      "size": [
+        320,
+        134
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "save2",
+        "Node name for S&R": "ElevenLabsPro_SaveAudio"
+      },
+      "widgets_values": [
+        "sfx_forest_ambience",
+        "mp3",
+        "sfx_library"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ElevenLabsPro_SFX",
+      "pos": [
+        430,
+        578
+      ],
+      "size": [
+        320,
+        234
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sfx3",
+        "Node name for S&R": "ElevenLabsPro_SFX"
+      },
+      "widgets_values": [
+        "Futuristic laser gun fire, high-pitched zap with echo, sci-fi",
+        "eleven_text_to_sound_v2",
+        2.0,
+        0.6,
+        false,
+        "mp3_44100_192",
+        0
+      ]
+    },
+    {
+      "id": 7,
+      "type": "ElevenLabsPro_SaveAudio",
+      "pos": [
+        810,
+        378
+      ],
+      "size": [
+        320,
+        134
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "save3",
+        "Node name for S&R": "ElevenLabsPro_SaveAudio"
+      },
+      "widgets_values": [
+        "sfx_laser",
+        "mp3",
+        "sfx_library"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "ElevenLabsPro_SFX",
+      "pos": [
+        430,
+        842
+      ],
+      "size": [
+        320,
+        234
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sfx4",
+        "Node name for S&R": "ElevenLabsPro_SFX"
+      },
+      "widgets_values": [
+        "Medieval sword clash with metallic ring, shield impact, battle tension",
+        "eleven_text_to_sound_v2",
+        3.0,
+        0.5,
+        false,
+        "mp3_44100_192",
+        0
+      ]
+    },
+    {
+      "id": 9,
+      "type": "ElevenLabsPro_SaveAudio",
+      "pos": [
+        810,
+        542
+      ],
+      "size": [
+        320,
+        134
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "save4",
+        "Node name for S&R": "ElevenLabsPro_SaveAudio"
+      },
+      "widgets_values": [
+        "sfx_sword_clash",
+        "mp3",
+        "sfx_library"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "ElevenLabsPro_SFX",
+      "pos": [
+        430,
+        1106
+      ],
+      "size": [
+        320,
+        234
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sfx5",
+        "Node name for S&R": "ElevenLabsPro_SFX"
+      },
+      "widgets_values": [
+        "Cozy coffee shop interior ambience, espresso machine, quiet chatter, spoons clinking",
+        "eleven_text_to_sound_v2",
+        10.0,
+        0.3,
+        false,
+        "mp3_44100_192",
+        0
+      ]
+    },
+    {
+      "id": 11,
+      "type": "ElevenLabsPro_SaveAudio",
+      "pos": [
+        810,
+        706
+      ],
+      "size": [
+        320,
+        134
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "save5",
+        "Node name for S&R": "ElevenLabsPro_SaveAudio"
+      },
+      "widgets_values": [
+        "sfx_coffee_shop",
+        "mp3",
+        "sfx_library"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      0,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      1,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      1,
+      0,
+      8,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      1,
+      0,
+      10,
+      0,
+      "STRING"
+    ],
+    [
+      6,
+      2,
+      0,
+      3,
+      0,
+      "AUDIO"
+    ],
+    [
+      7,
+      4,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ],
+    [
+      8,
+      6,
+      0,
+      7,
+      0,
+      "AUDIO"
+    ],
+    [
+      9,
+      8,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ],
+    [
+      10,
+      10,
+      0,
+      11,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "SFX 1",
+      "bounding": [
+        410,
+        0,
+        740,
+        304
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "SFX 2",
+      "bounding": [
+        410,
+        164,
+        740,
+        404
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "SFX 3",
+      "bounding": [
+        410,
+        328,
+        740,
+        504
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "SFX 4",
+      "bounding": [
+        410,
+        492,
+        740,
+        604
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "SFX 5",
+      "bounding": [
+        410,
+        656,
+        740,
+        704
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Generate 5 distinct sound effects in parallel and save each to a named file, building a reusable SFX library in one workflow run.",
+    "title": "ElevenLabs Pro \u2014 SFX Library Builder",
+    "tier": 2,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}
