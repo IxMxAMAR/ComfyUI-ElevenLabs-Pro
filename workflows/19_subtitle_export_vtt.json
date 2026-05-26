@@ -1,0 +1,310 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "pos": [
+        50,
+        174
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "src",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ElevenLabsPro_STT",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        342
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        },
+        {
+          "name": "language_code",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "words_json",
+          "type": "STRING",
+          "links": [
+            3
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "recipe_id": "stt",
+        "Node name for S&R": "ElevenLabsPro_STT"
+      },
+      "widgets_values": [
+        "scribe_v2",
+        "",
+        false,
+        false,
+        0,
+        "word",
+        0,
+        0.5,
+        0.0,
+        "",
+        false
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ElevenLabsPro_SubtitleExport",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        154
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "timestamps_json",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "timestamps_json"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "subtitle_text",
+          "type": "STRING",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "sub",
+        "Node name for S&R": "ElevenLabsPro_SubtitleExport"
+      },
+      "widgets_values": [
+        "vtt",
+        42,
+        6.0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ShowText",
+      "pos": [
+        1190,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_vtt",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      1,
+      "AUDIO"
+    ],
+    [
+      3,
+      3,
+      2,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        288
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Action",
+      "bounding": [
+        410,
+        0,
+        740,
+        412
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        1170,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Transcribe an audio file with Scribe, then export the word-level alignment as a WebVTT subtitle file.",
+    "title": "ElevenLabs Pro \u2014 STT \u2192 VTT Subtitles",
+    "tier": 1,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

@@ -1,0 +1,206 @@
+{
+  "last_node_id": 3,
+  "last_link_id": 2,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_Dialogue",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        634
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "dialogue",
+        "Node name for S&R": "ElevenLabsPro_Dialogue"
+      },
+      "widgets_values": [
+        "Hello everyone, welcome to the show.",
+        "<replace_with_voice_id>",
+        "eleven_v3",
+        "Thanks for having me! Really excited to be here.",
+        "<replace_with_voice_id>",
+        "Glad to be here. Let's get started!",
+        "<replace_with_voice_id>",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        0.5,
+        "auto",
+        "Auto Detect",
+        "mp3_44100_192",
+        0,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewAudio",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        74
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "recipe_id": "preview",
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Action",
+      "bounding": [
+        410,
+        0,
+        360,
+        704
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        790,
+        0,
+        360,
+        144
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Generate a multi-speaker conversation in a single API call. Replace voice IDs with real voice IDs from your account.",
+    "title": "ElevenLabs Pro \u2014 Dialogue: 3-Speaker",
+    "tier": 1,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

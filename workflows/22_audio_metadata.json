@@ -1,0 +1,347 @@
+{
+  "last_node_id": 6,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadAudio",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "src",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_AudioMetadata",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        116
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "duration_seconds",
+          "type": "FLOAT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "sample_rate",
+          "type": "INT",
+          "links": [
+            3
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "channels",
+          "type": "INT",
+          "links": [
+            4
+          ],
+          "slot_index": 2
+        },
+        {
+          "name": "samples",
+          "type": "INT",
+          "links": [
+            5
+          ],
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "recipe_id": "meta",
+        "Node name for S&R": "ElevenLabsPro_AudioMetadata"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 3,
+      "type": "ShowText",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_dur",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 4,
+      "type": "ShowText",
+      "pos": [
+        810,
+        174
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_sr",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 5,
+      "type": "ShowText",
+      "pos": [
+        810,
+        298
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_ch",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "ShowText",
+      "pos": [
+        810,
+        422
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_samp",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "AUDIO"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "FLOAT"
+    ],
+    [
+      3,
+      2,
+      1,
+      4,
+      0,
+      "INT"
+    ],
+    [
+      4,
+      2,
+      2,
+      5,
+      0,
+      "INT"
+    ],
+    [
+      5,
+      2,
+      3,
+      6,
+      0,
+      "INT"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Action",
+      "bounding": [
+        410,
+        0,
+        360,
+        186
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        790,
+        0,
+        360,
+        536
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Inspect any audio file: read its duration (seconds), sample rate (Hz), channel count, and total sample count.",
+    "title": "ElevenLabs Pro \u2014 Audio Metadata",
+    "tier": 1,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

@@ -1,0 +1,194 @@
+{
+  "last_node_id": 3,
+  "last_link_id": 2,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_VoiceDesign",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        182
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "preview_audio",
+          "type": "AUDIO",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "generated_voice_id",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "all_voice_ids",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "recipe_id": "design",
+        "Node name for S&R": "ElevenLabsPro_VoiceDesign"
+      },
+      "widgets_values": [
+        "Hello, I am a designed voice.",
+        "A warm, enthusiastic female voice with a slight British accent.",
+        0
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewAudio",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        74
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "recipe_id": "preview",
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Action",
+      "bounding": [
+        410,
+        0,
+        360,
+        252
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        790,
+        0,
+        360,
+        144
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Describe a voice in natural language and preview the generated synthetic voice before saving it.",
+    "title": "ElevenLabs Pro \u2014 Voice Design",
+    "tier": 1,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

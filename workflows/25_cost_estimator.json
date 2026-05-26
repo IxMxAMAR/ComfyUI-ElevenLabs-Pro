@@ -1,0 +1,141 @@
+{
+  "last_node_id": 2,
+  "last_link_id": 1,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_CostEstimator",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        142
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "characters",
+          "type": "INT",
+          "links": [],
+          "slot_index": 0
+        },
+        {
+          "name": "estimated_credits",
+          "type": "FLOAT",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "summary",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "recipe_id": "est",
+        "Node name for S&R": "ElevenLabsPro_CostEstimator"
+      },
+      "widgets_values": [
+        "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. ",
+        "eleven_v3"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ShowText",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_summary",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      2,
+      2,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Action",
+      "bounding": [
+        30,
+        0,
+        360,
+        212
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        410,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Estimate ElevenLabs credit cost before generating speech. Shows character count, estimated credits, and a human-readable summary.",
+    "title": "ElevenLabs Pro \u2014 Cost Estimator",
+    "tier": 1,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}

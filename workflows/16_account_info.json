@@ -1,0 +1,256 @@
+{
+  "last_node_id": 4,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ElevenLabsPro_APIKey",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "api",
+        "Node name for S&R": "ElevenLabsPro_APIKey"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ElevenLabsPro_AccountInfo",
+      "pos": [
+        430,
+        50
+      ],
+      "size": [
+        320,
+        156
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "api_key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "account_json_redacted",
+          "type": "STRING",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "subscription_tier",
+          "type": "STRING",
+          "links": [
+            3
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "character_count",
+          "type": "INT",
+          "links": [],
+          "slot_index": 2
+        },
+        {
+          "name": "character_limit",
+          "type": "INT",
+          "links": [],
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "recipe_id": "info",
+        "Node name for S&R": "ElevenLabsPro_AccountInfo"
+      },
+      "widgets_values": [
+        "user_subscription"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ShowText",
+      "pos": [
+        810,
+        50
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_json",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 4,
+      "type": "ShowText",
+      "pos": [
+        810,
+        174
+      ],
+      "size": [
+        320,
+        94
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_tier",
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      2,
+      1,
+      4,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Setup",
+      "bounding": [
+        30,
+        0,
+        360,
+        164
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Action",
+      "bounding": [
+        410,
+        0,
+        360,
+        226
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Output",
+      "bounding": [
+        790,
+        0,
+        360,
+        288
+      ],
+      "color": "#3F789E",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "description": "Retrieve your ElevenLabs subscription tier, character usage, and character limit in one node.",
+    "title": "ElevenLabs Pro \u2014 Account Info",
+    "tier": 1,
+    "pack": "ComfyUI-ElevenLabs-Pro"
+  },
+  "version": 0.4
+}
