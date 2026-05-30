@@ -11,7 +11,7 @@
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 1,
@@ -43,11 +43,11 @@
       "type": "ElevenLabsPro_VoiceSelector",
       "pos": [
         60,
-        214
+        198
       ],
       "size": [
         320,
-        126
+        112
       ],
       "flags": {},
       "order": 2,
@@ -71,7 +71,7 @@
         "Node name for S&R": "ElevenLabsPro_VoiceSelector"
       },
       "widgets_values": [
-        "Rachel",
+        "Rachel (female, american)",
         ""
       ]
     },
@@ -84,7 +84,7 @@
       ],
       "size": [
         320,
-        554
+        596
       ],
       "flags": {},
       "order": 3,
@@ -128,7 +128,9 @@
         "Node name for S&R": "ElevenLabsPro_TTS"
       },
       "widgets_values": [
+        "",
         "Chapter One. The morning sun crept over the horizon, casting long golden shadows across the quiet village. Thomas stood at his window, coffee in hand, watching the world slowly wake.",
+        "",
         "eleven_v3",
         0.5,
         0.75,
@@ -152,11 +154,11 @@
       "type": "ElevenLabsPro_TTS",
       "pos": [
         460,
-        664
+        706
       ],
       "size": [
         320,
-        554
+        596
       ],
       "flags": {},
       "order": 4,
@@ -200,7 +202,9 @@
         "Node name for S&R": "ElevenLabsPro_TTS"
       },
       "widgets_values": [
+        "",
         "He had returned to Ashford after fifteen years away, and nothing felt quite as he had remembered it. The bakery was still there, but Mrs. Henderson had long since retired.",
+        "",
         "eleven_v3",
         0.5,
         0.75,
@@ -224,11 +228,11 @@
       "type": "ElevenLabsPro_TTS",
       "pos": [
         460,
-        1268
+        1352
       ],
       "size": [
         320,
-        554
+        596
       ],
       "flags": {},
       "order": 5,
@@ -272,7 +276,9 @@
         "Node name for S&R": "ElevenLabsPro_TTS"
       },
       "widgets_values": [
+        "",
         "A knock at the door interrupted his thoughts. He set down his cup and crossed the small room, wondering who could be calling at such an early hour.",
+        "",
         "eleven_v3",
         0.5,
         0.75,
@@ -296,11 +302,11 @@
       "type": "ElevenLabsPro_TTS",
       "pos": [
         460,
-        1872
+        1998
       ],
       "size": [
         320,
-        554
+        596
       ],
       "flags": {},
       "order": 6,
@@ -344,7 +350,9 @@
         "Node name for S&R": "ElevenLabsPro_TTS"
       },
       "widgets_values": [
+        "",
         "It was Clara, his childhood friend, standing on the step with a letter in her hand and tears on her cheeks. Something had changed, and Thomas could feel it in his bones.",
+        "",
         "eleven_v3",
         0.5,
         0.75,
@@ -372,7 +380,7 @@
       ],
       "size": [
         320,
-        230
+        228
       ],
       "flags": {},
       "order": 7,
@@ -446,7 +454,7 @@
       ],
       "size": [
         320,
-        126
+        112
       ],
       "flags": {},
       "order": 8,
@@ -486,7 +494,7 @@
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 9,
@@ -638,7 +646,7 @@
         35,
         -1,
         370,
-        366
+        336
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -650,7 +658,7 @@
         435,
         -1,
         370,
-        2452
+        2620
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -662,7 +670,7 @@
         835,
         -1,
         370,
-        316
+        314
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -674,7 +682,7 @@
         1235,
         -1,
         370,
-        212
+        198
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -686,7 +694,7 @@
         1635,
         -1,
         370,
-        234
+        222
       ],
       "color": "#3F789E",
       "font_size": 24,

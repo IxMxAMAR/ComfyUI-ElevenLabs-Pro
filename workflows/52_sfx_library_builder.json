@@ -11,7 +11,7 @@
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 1,
@@ -48,7 +48,7 @@
       ],
       "size": [
         320,
-        316
+        336
       ],
       "flags": {},
       "order": 2,
@@ -78,6 +78,7 @@
         "Node name for S&R": "ElevenLabsPro_SFX"
       },
       "widgets_values": [
+        "",
         "A thunderous explosion with debris and smoke, cinematic, deep bass boom",
         "eleven_text_to_sound_v2",
         4.0,
@@ -97,7 +98,7 @@
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 3,
@@ -132,11 +133,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        426
+        446
       ],
       "size": [
         320,
-        316
+        336
       ],
       "flags": {},
       "order": 4,
@@ -166,6 +167,7 @@
         "Node name for S&R": "ElevenLabsPro_SFX"
       },
       "widgets_values": [
+        "",
         "A gentle forest ambience with birdsong, wind through leaves, distant stream",
         "eleven_text_to_sound_v2",
         8.0,
@@ -181,11 +183,11 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        258
+        246
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 5,
@@ -220,11 +222,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        792
+        832
       ],
       "size": [
         320,
-        316
+        336
       ],
       "flags": {},
       "order": 6,
@@ -254,6 +256,7 @@
         "Node name for S&R": "ElevenLabsPro_SFX"
       },
       "widgets_values": [
+        "",
         "Futuristic laser gun fire, high-pitched zap with echo, sci-fi",
         "eleven_text_to_sound_v2",
         2.0,
@@ -269,11 +272,11 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        456
+        432
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 7,
@@ -308,11 +311,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        1158
+        1218
       ],
       "size": [
         320,
-        316
+        336
       ],
       "flags": {},
       "order": 8,
@@ -342,6 +345,7 @@
         "Node name for S&R": "ElevenLabsPro_SFX"
       },
       "widgets_values": [
+        "",
         "Medieval sword clash with metallic ring, shield impact, battle tension",
         "eleven_text_to_sound_v2",
         3.0,
@@ -357,11 +361,11 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        654
+        618
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 9,
@@ -396,11 +400,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        1524
+        1604
       ],
       "size": [
         320,
-        316
+        336
       ],
       "flags": {},
       "order": 10,
@@ -430,6 +434,7 @@
         "Node name for S&R": "ElevenLabsPro_SFX"
       },
       "widgets_values": [
+        "",
         "Cozy coffee shop interior ambience, espresso machine, quiet chatter, spoons clinking",
         "eleven_text_to_sound_v2",
         10.0,
@@ -445,11 +450,11 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        852
+        804
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 11,
@@ -569,7 +574,7 @@
         35,
         -1,
         370,
-        190
+        174
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -581,7 +586,7 @@
         435,
         -1,
         770,
-        402
+        422
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -591,9 +596,9 @@
       "title": "SFX 2",
       "bounding": [
         435,
-        197,
+        185,
         770,
-        570
+        622
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -603,9 +608,9 @@
       "title": "SFX 3",
       "bounding": [
         435,
-        395,
+        371,
         770,
-        738
+        822
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -615,9 +620,9 @@
       "title": "SFX 4",
       "bounding": [
         435,
-        593,
+        557,
         770,
-        906
+        1022
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -627,9 +632,9 @@
       "title": "SFX 5",
       "bounding": [
         435,
-        791,
+        743,
         770,
-        1074
+        1222
       ],
       "color": "#3F789E",
       "font_size": 24,

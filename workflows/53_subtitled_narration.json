@@ -1,6 +1,6 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 4,
+  "last_node_id": 6,
+  "last_link_id": 5,
   "nodes": [
     {
       "id": 1,
@@ -11,7 +11,7 @@
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 1,
@@ -40,11 +40,11 @@
       "type": "ElevenLabsPro_VoiceSelector",
       "pos": [
         60,
-        214
+        198
       ],
       "size": [
         320,
-        126
+        112
       ],
       "flags": {},
       "order": 2,
@@ -65,7 +65,7 @@
         "Node name for S&R": "ElevenLabsPro_VoiceSelector"
       },
       "widgets_values": [
-        "Aria",
+        "(Custom voice_id)",
         ""
       ]
     },
@@ -78,7 +78,7 @@
       ],
       "size": [
         320,
-        356
+        380
       ],
       "flags": {},
       "order": 3,
@@ -124,7 +124,9 @@
         "Node name for S&R": "ElevenLabsPro_TTSTimestamps"
       },
       "widgets_values": [
+        "",
         "The universe is approximately 13.8 billion years old. In that vast span of time, stars have been born and died, galaxies have collided, and on one small planet, life has emerged. We are the cosmos made conscious, briefly aware of itself.",
+        "",
         "eleven_v3",
         0.5,
         0.75,
@@ -143,7 +145,7 @@
       ],
       "size": [
         320,
-        228
+        240
       ],
       "flags": {},
       "order": 4,
@@ -162,7 +164,9 @@
         {
           "name": "subtitle_text",
           "type": "STRING",
-          "links": [],
+          "links": [
+            5
+          ],
           "slot_index": 0
         }
       ],
@@ -171,6 +175,7 @@
         "Node name for S&R": "ElevenLabsPro_SubtitleExport"
       },
       "widgets_values": [
+        "",
         "srt",
         42,
         4.0
@@ -181,11 +186,11 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        338
+        350
       ],
       "size": [
         320,
-        148
+        136
       ],
       "flags": {},
       "order": 5,
@@ -212,6 +217,46 @@
       "widgets_values": [
         "narration_with_subs",
         "mp3",
+        ""
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ShowText|pysssss",
+      "pos": [
+        1260,
+        60
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "srt_out",
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
         ""
       ]
     }
@@ -248,6 +293,14 @@
       4,
       0,
       "STRING"
+    ],
+    [
+      5,
+      4,
+      0,
+      6,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -257,7 +310,7 @@
         35,
         -1,
         370,
-        366
+        336
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -269,7 +322,7 @@
         435,
         -1,
         370,
-        442
+        466
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -281,7 +334,7 @@
         835,
         -1,
         370,
-        314
+        326
       ],
       "color": "#3F789E",
       "font_size": 24,

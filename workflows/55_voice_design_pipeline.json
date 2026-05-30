@@ -1,6 +1,6 @@
 {
-  "last_node_id": 8,
-  "last_link_id": 8,
+  "last_node_id": 9,
+  "last_link_id": 9,
   "nodes": [
     {
       "id": 1,
@@ -11,7 +11,7 @@
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 1,
@@ -47,7 +47,7 @@
       ],
       "size": [
         320,
-        322
+        360
       ],
       "flags": {},
       "order": 2,
@@ -91,6 +91,7 @@
         "Node name for S&R": "ElevenLabsPro_VoiceDesign"
       },
       "widgets_values": [
+        "",
         "Hello, my name is Alex and I will be your guide today.",
         "A warm, confident male narrator with a slight British accent, clear and authoritative",
         0
@@ -105,7 +106,7 @@
       ],
       "size": [
         320,
-        82
+        56
       ],
       "flags": {},
       "order": 3,
@@ -129,11 +130,11 @@
       "type": "ElevenLabsPro_VoiceDesign",
       "pos": [
         460,
-        432
+        470
       ],
       "size": [
         320,
-        322
+        360
       ],
       "flags": {},
       "order": 4,
@@ -175,6 +176,7 @@
         "Node name for S&R": "ElevenLabsPro_VoiceDesign"
       },
       "widgets_values": [
+        "",
         "Hello, my name is Alex and I will be your guide today.",
         "A warm, confident male narrator with a slight British accent, clear and authoritative",
         1
@@ -185,11 +187,11 @@
       "type": "PreviewAudio",
       "pos": [
         860,
-        192
+        166
       ],
       "size": [
         320,
-        82
+        56
       ],
       "flags": {},
       "order": 5,
@@ -213,11 +215,11 @@
       "type": "ElevenLabsPro_VoiceDesign",
       "pos": [
         460,
-        804
+        880
       ],
       "size": [
         320,
-        322
+        360
       ],
       "flags": {},
       "order": 6,
@@ -259,6 +261,7 @@
         "Node name for S&R": "ElevenLabsPro_VoiceDesign"
       },
       "widgets_values": [
+        "",
         "Hello, my name is Alex and I will be your guide today.",
         "A warm, confident male narrator with a slight British accent, clear and authoritative",
         2
@@ -269,11 +272,11 @@
       "type": "PreviewAudio",
       "pos": [
         860,
-        324
+        272
       ],
       "size": [
         320,
-        82
+        56
       ],
       "flags": {},
       "order": 7,
@@ -301,7 +304,7 @@
       ],
       "size": [
         320,
-        210
+        204
       ],
       "flags": {},
       "order": 8,
@@ -328,7 +331,9 @@
         {
           "name": "voice_id",
           "type": "STRING",
-          "links": [],
+          "links": [
+            9
+          ],
           "slot_index": 0
         },
         {
@@ -343,9 +348,51 @@
         "Node name for S&R": "ElevenLabsPro_VoiceCreate"
       },
       "widgets_values": [
+        "",
+        "",
         "Alex_Narrator",
         true,
         "Warm British narrator, candidate 0"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "ShowText|pysssss",
+      "pos": [
+        1660,
+        60
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 9,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "voice_id_out",
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        ""
       ]
     }
   ],
@@ -413,6 +460,14 @@
       8,
       1,
       "STRING"
+    ],
+    [
+      9,
+      8,
+      0,
+      9,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -422,7 +477,7 @@
         35,
         -1,
         370,
-        190
+        174
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -434,7 +489,7 @@
         435,
         -1,
         770,
-        408
+        446
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -444,9 +499,9 @@
       "title": "Candidate 1",
       "bounding": [
         435,
-        131,
+        105,
         770,
-        648
+        750
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -456,9 +511,9 @@
       "title": "Candidate 2",
       "bounding": [
         435,
-        263,
+        211,
         770,
-        888
+        1054
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -470,7 +525,7 @@
         1235,
         -1,
         770,
-        296
+        290
       ],
       "color": "#3F789E",
       "font_size": 24,

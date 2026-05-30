@@ -1,6 +1,6 @@
 {
-  "last_node_id": 4,
-  "last_link_id": 3,
+  "last_node_id": 5,
+  "last_link_id": 4,
   "nodes": [
     {
       "id": 1,
@@ -11,7 +11,7 @@
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 1,
@@ -40,11 +40,11 @@
       "type": "LoadAudio",
       "pos": [
         60,
-        214
+        198
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 2,
@@ -77,7 +77,7 @@
       ],
       "size": [
         320,
-        382
+        392
       ],
       "flags": {},
       "order": 3,
@@ -124,6 +124,7 @@
         "Node name for S&R": "ElevenLabsPro_STT"
       },
       "widgets_values": [
+        "",
         "scribe_v2",
         "",
         false,
@@ -147,7 +148,7 @@
       ],
       "size": [
         320,
-        228
+        240
       ],
       "flags": {},
       "order": 4,
@@ -166,7 +167,9 @@
         {
           "name": "subtitle_text",
           "type": "STRING",
-          "links": [],
+          "links": [
+            4
+          ],
           "slot_index": 0
         }
       ],
@@ -175,9 +178,50 @@
         "Node name for S&R": "ElevenLabsPro_SubtitleExport"
       },
       "widgets_values": [
+        "",
         "vtt",
         42,
         6.0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ShowText|pysssss",
+      "pos": [
+        1260,
+        60
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_vtt",
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        ""
       ]
     }
   ],
@@ -205,6 +249,14 @@
       4,
       0,
       "STRING"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -214,7 +266,7 @@
         35,
         -1,
         370,
-        344
+        312
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -226,7 +278,7 @@
         435,
         -1,
         770,
-        468
+        478
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -238,7 +290,7 @@
         1235,
         -1,
         370,
-        190
+        174
       ],
       "color": "#3F789E",
       "font_size": 24,

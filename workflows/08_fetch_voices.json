@@ -1,6 +1,6 @@
 {
-  "last_node_id": 2,
-  "last_link_id": 1,
+  "last_node_id": 3,
+  "last_link_id": 2,
   "nodes": [
     {
       "id": 1,
@@ -11,7 +11,7 @@
       ],
       "size": [
         320,
-        104
+        88
       ],
       "flags": {},
       "order": 1,
@@ -44,7 +44,7 @@
       ],
       "size": [
         320,
-        228
+        224
       ],
       "flags": {},
       "order": 2,
@@ -63,7 +63,9 @@
         {
           "name": "voices_json",
           "type": "STRING",
-          "links": [],
+          "links": [
+            2
+          ],
           "slot_index": 0
         },
         {
@@ -85,9 +87,50 @@
       },
       "widgets_values": [
         "",
+        "",
         "all",
         "any",
         false
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ShowText|pysssss",
+      "pos": [
+        860,
+        60
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "recipe_id": "show_voices",
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        ""
       ]
     }
   ],
@@ -99,6 +142,14 @@
       2,
       0,
       "STRING"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -108,7 +159,7 @@
         35,
         -1,
         370,
-        190
+        174
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -120,7 +171,7 @@
         435,
         -1,
         370,
-        314
+        310
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -132,7 +183,7 @@
         835,
         -1,
         370,
-        190
+        174
       ],
       "color": "#3F789E",
       "font_size": 24,
