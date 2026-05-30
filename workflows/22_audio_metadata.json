@@ -1,17 +1,17 @@
 {
-  "last_node_id": 6,
-  "last_link_id": 5,
+  "last_node_id": 2,
+  "last_link_id": 1,
   "nodes": [
     {
       "id": 1,
       "type": "LoadAudio",
       "pos": [
-        50,
-        50
+        60,
+        60
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 1,
@@ -39,12 +39,12 @@
       "id": 2,
       "type": "ElevenLabsPro_AudioMetadata",
       "pos": [
-        430,
-        50
+        460,
+        60
       ],
       "size": [
         320,
-        116
+        136
       ],
       "flags": {},
       "order": 2,
@@ -60,191 +60,31 @@
         {
           "name": "duration_seconds",
           "type": "FLOAT",
-          "links": [
-            2
-          ],
+          "links": [],
           "slot_index": 0
         },
         {
           "name": "sample_rate",
           "type": "INT",
-          "links": [
-            3
-          ],
+          "links": [],
           "slot_index": 1
         },
         {
           "name": "channels",
           "type": "INT",
-          "links": [
-            4
-          ],
+          "links": [],
           "slot_index": 2
         },
         {
           "name": "samples",
           "type": "INT",
-          "links": [
-            5
-          ],
+          "links": [],
           "slot_index": 3
         }
       ],
       "properties": {
         "recipe_id": "meta",
         "Node name for S&R": "ElevenLabsPro_AudioMetadata"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 3,
-      "type": "ShowText",
-      "pos": [
-        810,
-        50
-      ],
-      "size": [
-        320,
-        94
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 2,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "recipe_id": "show_dur",
-        "Node name for S&R": "ShowText"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 4,
-      "type": "ShowText",
-      "pos": [
-        810,
-        174
-      ],
-      "size": [
-        320,
-        94
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 3,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "recipe_id": "show_sr",
-        "Node name for S&R": "ShowText"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 5,
-      "type": "ShowText",
-      "pos": [
-        810,
-        298
-      ],
-      "size": [
-        320,
-        94
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 4,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "recipe_id": "show_ch",
-        "Node name for S&R": "ShowText"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 6,
-      "type": "ShowText",
-      "pos": [
-        810,
-        422
-      ],
-      "size": [
-        320,
-        94
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 5,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "recipe_id": "show_samp",
-        "Node name for S&R": "ShowText"
       },
       "widgets_values": []
     }
@@ -257,48 +97,16 @@
       2,
       0,
       "AUDIO"
-    ],
-    [
-      2,
-      2,
-      0,
-      3,
-      0,
-      "FLOAT"
-    ],
-    [
-      3,
-      2,
-      1,
-      4,
-      0,
-      "INT"
-    ],
-    [
-      4,
-      2,
-      2,
-      5,
-      0,
-      "INT"
-    ],
-    [
-      5,
-      2,
-      3,
-      6,
-      0,
-      "INT"
     ]
   ],
   "groups": [
     {
       "title": "Setup",
       "bounding": [
-        30,
-        0,
-        360,
-        164
+        35,
+        -1,
+        370,
+        190
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -307,10 +115,10 @@
     {
       "title": "Action",
       "bounding": [
-        410,
-        0,
-        360,
-        186
+        435,
+        -1,
+        370,
+        222
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -319,10 +127,10 @@
     {
       "title": "Output",
       "bounding": [
-        790,
-        0,
-        360,
-        536
+        835,
+        -1,
+        370,
+        652
       ],
       "color": "#3F789E",
       "font_size": 24,

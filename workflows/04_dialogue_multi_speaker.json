@@ -6,12 +6,12 @@
       "id": 1,
       "type": "ElevenLabsPro_APIKey",
       "pos": [
-        50,
-        50
+        60,
+        60
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 1,
@@ -39,12 +39,12 @@
       "id": 2,
       "type": "ElevenLabsPro_Dialogue",
       "pos": [
-        430,
-        50
+        460,
+        60
       ],
       "size": [
         320,
-        634
+        1278
       ],
       "flags": {},
       "order": 2,
@@ -100,6 +100,7 @@
         "Auto Detect",
         "mp3_44100_192",
         0,
+        "randomize",
         true
       ]
     },
@@ -107,12 +108,12 @@
       "id": 3,
       "type": "PreviewAudio",
       "pos": [
-        810,
-        50
+        860,
+        60
       ],
       "size": [
         320,
-        74
+        82
       ],
       "flags": {},
       "order": 3,
@@ -154,10 +155,10 @@
     {
       "title": "Setup",
       "bounding": [
-        30,
-        0,
-        360,
-        164
+        35,
+        -1,
+        370,
+        190
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -166,10 +167,10 @@
     {
       "title": "Action",
       "bounding": [
-        410,
-        0,
-        360,
-        704
+        435,
+        -1,
+        370,
+        1364
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -178,10 +179,10 @@
     {
       "title": "Output",
       "bounding": [
-        790,
-        0,
-        360,
-        144
+        835,
+        -1,
+        370,
+        168
       ],
       "color": "#3F789E",
       "font_size": 24,

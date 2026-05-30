@@ -6,12 +6,12 @@
       "id": 1,
       "type": "ElevenLabsPro_APIKey",
       "pos": [
-        50,
-        50
+        60,
+        60
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 1,
@@ -39,12 +39,12 @@
       "id": 2,
       "type": "ElevenLabsPro_VoiceSelector",
       "pos": [
-        50,
-        174
+        60,
+        214
       ],
       "size": [
         320,
-        114
+        126
       ],
       "flags": {},
       "order": 2,
@@ -73,12 +73,12 @@
       "id": 3,
       "type": "ElevenLabsPro_TTS",
       "pos": [
-        430,
-        50
+        460,
+        60
       ],
       "size": [
         320,
-        448
+        554
       ],
       "flags": {},
       "order": 3,
@@ -133,6 +133,7 @@
         "auto",
         "mp3_44100_192",
         0,
+        "randomize",
         "",
         "",
         false,
@@ -144,12 +145,12 @@
       "id": 4,
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
-        810,
-        50
+        860,
+        60
       ],
       "size": [
         320,
-        134
+        148
       ],
       "flags": {},
       "order": 4,
@@ -210,10 +211,10 @@
     {
       "title": "Setup",
       "bounding": [
-        30,
-        0,
-        360,
-        308
+        35,
+        -1,
+        370,
+        366
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -222,10 +223,10 @@
     {
       "title": "Action",
       "bounding": [
-        410,
-        0,
-        360,
-        518
+        435,
+        -1,
+        370,
+        640
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -234,10 +235,10 @@
     {
       "title": "Output",
       "bounding": [
-        790,
-        0,
-        360,
-        204
+        835,
+        -1,
+        370,
+        234
       ],
       "color": "#3F789E",
       "font_size": 24,

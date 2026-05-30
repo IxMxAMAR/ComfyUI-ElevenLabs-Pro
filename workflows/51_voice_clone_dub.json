@@ -1,17 +1,17 @@
 {
-  "last_node_id": 7,
-  "last_link_id": 9,
+  "last_node_id": 6,
+  "last_link_id": 8,
   "nodes": [
     {
       "id": 1,
       "type": "ElevenLabsPro_APIKey",
       "pos": [
-        50,
-        50
+        60,
+        60
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 1,
@@ -41,12 +41,12 @@
       "id": 2,
       "type": "LoadAudio",
       "pos": [
-        50,
-        174
+        60,
+        214
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 2,
@@ -75,12 +75,12 @@
       "id": 3,
       "type": "ElevenLabsPro_STT",
       "pos": [
-        430,
-        50
+        460,
+        60
       ],
       "size": [
         320,
-        342
+        382
       ],
       "flags": {},
       "order": 3,
@@ -105,8 +105,7 @@
           "name": "text",
           "type": "STRING",
           "links": [
-            6,
-            7
+            6
           ],
           "slot_index": 0
         },
@@ -135,6 +134,7 @@
         0,
         "word",
         0,
+        "randomize",
         0.5,
         0.0,
         "",
@@ -145,12 +145,12 @@
       "id": 4,
       "type": "ElevenLabsPro_VoiceClone",
       "pos": [
-        810,
-        50
+        860,
+        60
       ],
       "size": [
         320,
-        272
+        318
       ],
       "flags": {},
       "order": 4,
@@ -236,12 +236,12 @@
       "id": 5,
       "type": "ElevenLabsPro_TTS",
       "pos": [
-        1190,
-        50
+        1260,
+        60
       ],
       "size": [
         320,
-        448
+        554
       ],
       "flags": {},
       "order": 5,
@@ -303,6 +303,7 @@
         "auto",
         "mp3_44100_192",
         0,
+        "randomize",
         "",
         "",
         false,
@@ -312,55 +313,17 @@
     },
     {
       "id": 6,
-      "type": "ShowText",
+      "type": "PreviewAudio",
       "pos": [
-        1570,
-        50
+        1660,
+        214
       ],
       "size": [
         320,
-        94
+        82
       ],
       "flags": {},
       "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 7,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "recipe_id": "text_out",
-        "Node name for S&R": "ShowText"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 7,
-      "type": "PreviewAudio",
-      "pos": [
-        1570,
-        174
-      ],
-      "size": [
-        320,
-        74
-      ],
-      "flags": {},
-      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -427,14 +390,6 @@
       "STRING"
     ],
     [
-      7,
-      3,
-      0,
-      6,
-      0,
-      "STRING"
-    ],
-    [
       8,
       4,
       0,
@@ -446,7 +401,7 @@
       9,
       5,
       0,
-      7,
+      6,
       0,
       "AUDIO"
     ]
@@ -455,10 +410,10 @@
     {
       "title": "Setup",
       "bounding": [
-        30,
-        0,
-        360,
-        164
+        35,
+        -1,
+        370,
+        190
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -467,10 +422,10 @@
     {
       "title": "Source",
       "bounding": [
-        30,
-        124,
-        360,
-        164
+        35,
+        153,
+        370,
+        190
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -479,10 +434,10 @@
     {
       "title": "Transcribe",
       "bounding": [
-        410,
-        0,
-        360,
-        412
+        435,
+        -1,
+        370,
+        468
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -491,10 +446,10 @@
     {
       "title": "Clone",
       "bounding": [
-        790,
-        0,
-        360,
-        342
+        835,
+        -1,
+        370,
+        404
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -503,10 +458,10 @@
     {
       "title": "Dub",
       "bounding": [
-        1170,
-        0,
-        360,
-        518
+        1235,
+        -1,
+        370,
+        640
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -515,10 +470,10 @@
     {
       "title": "Output",
       "bounding": [
-        1550,
-        0,
-        360,
-        268
+        1635,
+        -1,
+        370,
+        322
       ],
       "color": "#3F789E",
       "font_size": 24,

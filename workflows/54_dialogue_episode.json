@@ -6,12 +6,12 @@
       "id": 1,
       "type": "ElevenLabsPro_APIKey",
       "pos": [
-        50,
-        50
+        60,
+        60
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 1,
@@ -41,12 +41,12 @@
       "id": 2,
       "type": "ElevenLabsPro_Music",
       "pos": [
-        430,
-        50
+        460,
+        60
       ],
       "size": [
         320,
-        294
+        440
       ],
       "flags": {},
       "order": 2,
@@ -80,6 +80,7 @@
         "music_v1",
         8.0,
         0,
+        "randomize",
         true,
         true,
         false,
@@ -92,12 +93,12 @@
       "id": 3,
       "type": "ElevenLabsPro_Dialogue",
       "pos": [
-        430,
-        374
+        460,
+        550
       ],
       "size": [
         320,
-        634
+        1278
       ],
       "flags": {},
       "order": 3,
@@ -153,6 +154,7 @@
         "Auto Detect",
         "mp3_44100_192",
         0,
+        "randomize",
         true
       ]
     },
@@ -160,12 +162,12 @@
       "id": 4,
       "type": "ElevenLabsPro_SFX",
       "pos": [
-        430,
-        1038
+        460,
+        1878
       ],
       "size": [
         320,
-        234
+        316
       ],
       "flags": {},
       "order": 4,
@@ -201,19 +203,20 @@
         0.3,
         false,
         "mp3_44100_192",
-        0
+        0,
+        "randomize"
       ]
     },
     {
       "id": 5,
       "type": "ElevenLabsPro_AudioConcat",
       "pos": [
-        810,
-        50
+        860,
+        60
       ],
       "size": [
         320,
-        192
+        230
       ],
       "flags": {},
       "order": 5,
@@ -282,12 +285,12 @@
       "id": 6,
       "type": "PreviewAudio",
       "pos": [
-        1190,
-        50
+        1260,
+        60
       ],
       "size": [
         320,
-        74
+        82
       ],
       "flags": {},
       "order": 6,
@@ -369,10 +372,10 @@
     {
       "title": "Setup",
       "bounding": [
-        30,
-        0,
-        360,
-        164
+        35,
+        -1,
+        370,
+        190
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -381,10 +384,10 @@
     {
       "title": "Intro",
       "bounding": [
-        410,
-        0,
-        360,
-        364
+        435,
+        -1,
+        370,
+        526
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -393,10 +396,10 @@
     {
       "title": "Dialogue",
       "bounding": [
-        410,
-        324,
-        360,
-        704
+        435,
+        489,
+        370,
+        1364
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -405,10 +408,10 @@
     {
       "title": "Transition",
       "bounding": [
-        410,
-        988,
-        360,
-        304
+        435,
+        1817,
+        370,
+        402
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -417,10 +420,10 @@
     {
       "title": "Assembly",
       "bounding": [
-        790,
-        0,
-        360,
-        262
+        835,
+        -1,
+        370,
+        316
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -429,10 +432,10 @@
     {
       "title": "Preview",
       "bounding": [
-        1170,
-        0,
-        360,
-        144
+        1235,
+        -1,
+        370,
+        168
       ],
       "color": "#3F789E",
       "font_size": 24,

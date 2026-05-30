@@ -6,12 +6,12 @@
       "id": 1,
       "type": "ElevenLabsPro_APIKey",
       "pos": [
-        50,
-        50
+        60,
+        60
       ],
       "size": [
         320,
-        94
+        104
       ],
       "flags": {},
       "order": 1,
@@ -43,12 +43,12 @@
       "id": 2,
       "type": "ElevenLabsPro_SFX",
       "pos": [
-        430,
-        50
+        460,
+        60
       ],
       "size": [
         320,
-        234
+        316
       ],
       "flags": {},
       "order": 2,
@@ -84,19 +84,20 @@
         0.5,
         false,
         "mp3_44100_192",
-        0
+        0,
+        "randomize"
       ]
     },
     {
       "id": 3,
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
-        810,
-        50
+        860,
+        60
       ],
       "size": [
         320,
-        134
+        148
       ],
       "flags": {},
       "order": 3,
@@ -130,12 +131,12 @@
       "id": 4,
       "type": "ElevenLabsPro_SFX",
       "pos": [
-        430,
-        314
+        460,
+        426
       ],
       "size": [
         320,
-        234
+        316
       ],
       "flags": {},
       "order": 4,
@@ -171,19 +172,20 @@
         0.3,
         false,
         "mp3_44100_192",
-        0
+        0,
+        "randomize"
       ]
     },
     {
       "id": 5,
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
-        810,
-        214
+        860,
+        258
       ],
       "size": [
         320,
-        134
+        148
       ],
       "flags": {},
       "order": 5,
@@ -217,12 +219,12 @@
       "id": 6,
       "type": "ElevenLabsPro_SFX",
       "pos": [
-        430,
-        578
+        460,
+        792
       ],
       "size": [
         320,
-        234
+        316
       ],
       "flags": {},
       "order": 6,
@@ -258,19 +260,20 @@
         0.6,
         false,
         "mp3_44100_192",
-        0
+        0,
+        "randomize"
       ]
     },
     {
       "id": 7,
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
-        810,
-        378
+        860,
+        456
       ],
       "size": [
         320,
-        134
+        148
       ],
       "flags": {},
       "order": 7,
@@ -304,12 +307,12 @@
       "id": 8,
       "type": "ElevenLabsPro_SFX",
       "pos": [
-        430,
-        842
+        460,
+        1158
       ],
       "size": [
         320,
-        234
+        316
       ],
       "flags": {},
       "order": 8,
@@ -345,19 +348,20 @@
         0.5,
         false,
         "mp3_44100_192",
-        0
+        0,
+        "randomize"
       ]
     },
     {
       "id": 9,
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
-        810,
-        542
+        860,
+        654
       ],
       "size": [
         320,
-        134
+        148
       ],
       "flags": {},
       "order": 9,
@@ -391,12 +395,12 @@
       "id": 10,
       "type": "ElevenLabsPro_SFX",
       "pos": [
-        430,
-        1106
+        460,
+        1524
       ],
       "size": [
         320,
-        234
+        316
       ],
       "flags": {},
       "order": 10,
@@ -432,19 +436,20 @@
         0.3,
         false,
         "mp3_44100_192",
-        0
+        0,
+        "randomize"
       ]
     },
     {
       "id": 11,
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
-        810,
-        706
+        860,
+        852
       ],
       "size": [
         320,
-        134
+        148
       ],
       "flags": {},
       "order": 11,
@@ -561,10 +566,10 @@
     {
       "title": "Setup",
       "bounding": [
-        30,
-        0,
-        360,
-        164
+        35,
+        -1,
+        370,
+        190
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -573,10 +578,10 @@
     {
       "title": "SFX 1",
       "bounding": [
-        410,
-        0,
-        740,
-        304
+        435,
+        -1,
+        770,
+        402
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -585,10 +590,10 @@
     {
       "title": "SFX 2",
       "bounding": [
-        410,
-        164,
-        740,
-        404
+        435,
+        197,
+        770,
+        570
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -597,10 +602,10 @@
     {
       "title": "SFX 3",
       "bounding": [
-        410,
-        328,
-        740,
-        504
+        435,
+        395,
+        770,
+        738
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -609,10 +614,10 @@
     {
       "title": "SFX 4",
       "bounding": [
-        410,
-        492,
-        740,
-        604
+        435,
+        593,
+        770,
+        906
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -621,10 +626,10 @@
     {
       "title": "SFX 5",
       "bounding": [
-        410,
-        656,
-        740,
-        704
+        435,
+        791,
+        770,
+        1074
       ],
       "color": "#3F789E",
       "font_size": 24,
