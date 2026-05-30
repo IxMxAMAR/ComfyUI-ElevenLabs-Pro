@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-elevenlabs-pro"
 description = "Full-featured ElevenLabs integration for ComfyUI - TTS, STS, SFX, Music, Voice Cloning, STT, Dialogue + audio utilities"
-version = "2.2.1"
+version = "2.2.2"
 license = "MIT"
 requires-python = ">=3.10"
 dependencies = [
