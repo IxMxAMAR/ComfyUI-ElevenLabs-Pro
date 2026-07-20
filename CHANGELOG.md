@@ -12,7 +12,7 @@ reserved by a prior partial publish on the registry side).
 
 ## [2.1.0] — 2026-05-17
 
-Big audit + fix release driven by two full-codebase Gemini Pro reviews
+Big audit + fix release following two full-codebase reviews
 (API client / audio I/O + ComfyUI node UX) plus first-party verification
 of every Critical/High finding against the live ElevenLabs API spec.
 **3 credit-burning bugs, 5 API contract bugs, 4 security/leak fixes, 11
