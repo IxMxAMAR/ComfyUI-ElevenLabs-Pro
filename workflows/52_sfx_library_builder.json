@@ -48,7 +48,7 @@
       ],
       "size": [
         320,
-        336
+        360
       ],
       "flags": {},
       "order": 2,
@@ -86,7 +86,8 @@
         false,
         "mp3_44100_192",
         0,
-        "randomize"
+        "randomize",
+        false
       ]
     },
     {
@@ -133,11 +134,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        784
+        832
       ],
       "size": [
         320,
-        336
+        360
       ],
       "flags": {},
       "order": 4,
@@ -175,7 +176,8 @@
         false,
         "mp3_44100_192",
         0,
-        "randomize"
+        "randomize",
+        false
       ]
     },
     {
@@ -183,7 +185,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        584
+        608
       ],
       "size": [
         320,
@@ -222,11 +224,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        1708
+        1828
       ],
       "size": [
         320,
-        336
+        360
       ],
       "flags": {},
       "order": 6,
@@ -264,7 +266,8 @@
         false,
         "mp3_44100_192",
         0,
-        "randomize"
+        "randomize",
+        false
       ]
     },
     {
@@ -272,7 +275,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        1308
+        1380
       ],
       "size": [
         320,
@@ -311,11 +314,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        2832
+        3048
       ],
       "size": [
         320,
-        336
+        360
       ],
       "flags": {},
       "order": 8,
@@ -353,7 +356,8 @@
         false,
         "mp3_44100_192",
         0,
-        "randomize"
+        "randomize",
+        false
       ]
     },
     {
@@ -361,7 +365,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        2232
+        2376
       ],
       "size": [
         320,
@@ -400,11 +404,11 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        4156
+        4492
       ],
       "size": [
         320,
-        336
+        360
       ],
       "flags": {},
       "order": 10,
@@ -442,7 +446,8 @@
         false,
         "mp3_44100_192",
         0,
-        "randomize"
+        "randomize",
+        false
       ]
     },
     {
@@ -450,7 +455,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        3356
+        3596
       ],
       "size": [
         320,
@@ -586,7 +591,7 @@
         435,
         -9,
         770,
-        430
+        454
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -596,9 +601,9 @@
       "title": "SFX 2",
       "bounding": [
         435,
-        515,
+        539,
         770,
-        630
+        678
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -608,9 +613,9 @@
       "title": "SFX 3",
       "bounding": [
         435,
-        1239,
+        1311,
         770,
-        830
+        902
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -620,9 +625,9 @@
       "title": "SFX 4",
       "bounding": [
         435,
-        2163,
+        2307,
         770,
-        1030
+        1126
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -632,9 +637,9 @@
       "title": "SFX 5",
       "bounding": [
         435,
-        3287,
+        3527,
         770,
-        1230
+        1350
       ],
       "color": "#3F789E",
       "font_size": 24,

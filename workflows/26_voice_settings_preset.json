@@ -74,7 +74,7 @@
       "type": "ElevenLabsPro_VoiceSettingsPreset",
       "pos": [
         460,
-        706
+        730
       ],
       "size": [
         320,
@@ -115,7 +115,7 @@
       ],
       "size": [
         320,
-        596
+        620
       ],
       "flags": {},
       "order": 4,
@@ -177,7 +177,8 @@
         "",
         false,
         true,
-        ""
+        "",
+        false
       ]
     },
     {
@@ -302,7 +303,7 @@
         435,
         -9,
         370,
-        924
+        948
       ],
       "color": "#3F789E",
       "font_size": 24,

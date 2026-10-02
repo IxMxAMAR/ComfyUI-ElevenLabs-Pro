@@ -47,7 +47,7 @@
       ],
       "size": [
         320,
-        360
+        528
       ],
       "flags": {},
       "order": 2,
@@ -60,6 +60,11 @@
           "widget": {
             "name": "api_key"
           }
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": null
         }
       ],
       "outputs": [
@@ -94,7 +99,15 @@
         "",
         "Hello, my name is Alex and I will be your guide today.",
         "A warm, confident male narrator with a slight British accent, clear and authoritative",
-        0
+        0,
+        "eleven_multilingual_ttv_v2",
+        false,
+        0.5,
+        5.0,
+        0,
+        "randomize",
+        false,
+        0.5
       ]
     },
     {
@@ -130,11 +143,11 @@
       "type": "ElevenLabsPro_VoiceDesign",
       "pos": [
         460,
-        832
+        1168
       ],
       "size": [
         320,
-        360
+        528
       ],
       "flags": {},
       "order": 4,
@@ -147,6 +160,11 @@
           "widget": {
             "name": "api_key"
           }
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": null
         }
       ],
       "outputs": [
@@ -179,7 +197,15 @@
         "",
         "Hello, my name is Alex and I will be your guide today.",
         "A warm, confident male narrator with a slight British accent, clear and authoritative",
-        1
+        1,
+        "eleven_multilingual_ttv_v2",
+        false,
+        0.5,
+        5.0,
+        0,
+        "randomize",
+        false,
+        0.5
       ]
     },
     {
@@ -187,7 +213,7 @@
       "type": "PreviewAudio",
       "pos": [
         860,
-        608
+        776
       ],
       "size": [
         320,
@@ -215,11 +241,11 @@
       "type": "ElevenLabsPro_VoiceDesign",
       "pos": [
         460,
-        1828
+        2668
       ],
       "size": [
         320,
-        360
+        528
       ],
       "flags": {},
       "order": 6,
@@ -232,6 +258,11 @@
           "widget": {
             "name": "api_key"
           }
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": null
         }
       ],
       "outputs": [
@@ -264,7 +295,15 @@
         "",
         "Hello, my name is Alex and I will be your guide today.",
         "A warm, confident male narrator with a slight British accent, clear and authoritative",
-        2
+        2,
+        "eleven_multilingual_ttv_v2",
+        false,
+        0.5,
+        5.0,
+        0,
+        "randomize",
+        false,
+        0.5
       ]
     },
     {
@@ -272,7 +311,7 @@
       "type": "PreviewAudio",
       "pos": [
         860,
-        1380
+        1884
       ],
       "size": [
         320,
@@ -300,11 +339,11 @@
       "type": "ElevenLabsPro_VoiceCreate",
       "pos": [
         1260,
-        920
+        1424
       ],
       "size": [
         320,
-        204
+        228
       ],
       "flags": {},
       "order": 8,
@@ -352,7 +391,8 @@
         "",
         "Alex_Narrator",
         true,
-        "Warm British narrator, candidate 0"
+        "Warm British narrator, candidate 0",
+        ""
       ]
     },
     {
@@ -360,7 +400,7 @@
       "type": "ShowText|pysssss",
       "pos": [
         1660,
-        920
+        1424
       ],
       "size": [
         320,
@@ -489,7 +529,7 @@
         435,
         -9,
         770,
-        454
+        622
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -499,9 +539,9 @@
       "title": "Candidate 1",
       "bounding": [
         435,
-        539,
+        707,
         770,
-        678
+        1014
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -511,9 +551,9 @@
       "title": "Candidate 2",
       "bounding": [
         435,
-        1311,
+        1815,
         770,
-        902
+        1406
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -523,9 +563,9 @@
       "title": "Create",
       "bounding": [
         1235,
-        851,
+        1355,
         770,
-        298
+        322
       ],
       "color": "#3F789E",
       "font_size": 24,

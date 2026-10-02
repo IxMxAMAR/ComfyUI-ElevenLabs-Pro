@@ -45,7 +45,7 @@
       ],
       "size": [
         320,
-        360
+        528
       ],
       "flags": {},
       "order": 2,
@@ -58,6 +58,11 @@
           "widget": {
             "name": "api_key"
           }
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": null
         }
       ],
       "outputs": [
@@ -92,7 +97,15 @@
         "",
         "Preview text for the designed voice.",
         "A calm, professional male voice with a neutral American accent.",
-        0
+        0,
+        "eleven_multilingual_ttv_v2",
+        false,
+        0.5,
+        5.0,
+        0,
+        "randomize",
+        false,
+        0.5
       ]
     },
     {
@@ -100,11 +113,11 @@
       "type": "ElevenLabsPro_VoiceCreate",
       "pos": [
         460,
-        470
+        638
       ],
       "size": [
         320,
-        204
+        228
       ],
       "flags": {},
       "order": 3,
@@ -152,6 +165,7 @@
         "",
         "My Designed Voice",
         false,
+        "",
         ""
       ]
     },
@@ -285,7 +299,7 @@
         435,
         -9,
         370,
-        708
+        900
       ],
       "color": "#3F789E",
       "font_size": 24,

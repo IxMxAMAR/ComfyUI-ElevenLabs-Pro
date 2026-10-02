@@ -44,7 +44,7 @@
       ],
       "size": [
         320,
-        360
+        528
       ],
       "flags": {},
       "order": 2,
@@ -57,6 +57,11 @@
           "widget": {
             "name": "api_key"
           }
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": null
         }
       ],
       "outputs": [
@@ -89,7 +94,15 @@
         "",
         "Hello, I am a designed voice.",
         "A warm, enthusiastic female voice with a slight British accent.",
-        0
+        0,
+        "eleven_multilingual_ttv_v2",
+        false,
+        0.5,
+        5.0,
+        0,
+        "randomize",
+        false,
+        0.5
       ]
     },
     {
@@ -158,7 +171,7 @@
         435,
         -9,
         370,
-        454
+        622
       ],
       "color": "#3F789E",
       "font_size": 24,
