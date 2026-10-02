@@ -34,14 +34,13 @@ ELEVENLABS_API_BASE = "https://api.elevenlabs.io"
 
 # Verified from /v1/models endpoint. See README for character limits.
 TTS_MODELS = [
-    "eleven_v3",                  # Latest flagship, expressive, supports v3 audio tags
+    "eleven_v4",                  # Most expressive, 90+ languages
+    "eleven_v3",                  # Expressive, supports v3 audio tags
     "eleven_multilingual_v2",     # Stable multilingual, ~32 languages
     "eleven_flash_v2_5",          # Fast multilingual (lowest latency)
     "eleven_turbo_v2_5",          # Multilingual turbo (better than flash, faster than v2)
     "eleven_flash_v2",            # English-only fast
     "eleven_turbo_v2",            # English-only turbo (legacy)
-    "eleven_multilingual_v1",     # Legacy multilingual
-    "eleven_monolingual_v1",      # Legacy English (Eleven v1)
 ]
 
 # Models which REQUIRE an explicit language_code (won't auto-detect)
@@ -58,10 +57,10 @@ STS_MODELS = [
     "eleven_english_sts_v2",
 ]
 
-# scribe_v1 + scribe_v2 (verified 2026-05 against docs)
+# scribe_v1 was removed on 2026-07-09.
 STT_MODELS = [
     "scribe_v2",
-    "scribe_v1",
+    "scribe_v2_medical",
 ]
 
 # Correct ID is `eleven_text_to_sound_v2` (verified 2026-05 against docs).
@@ -71,9 +70,28 @@ SFX_MODELS = [
     "eleven_sfx_v2",
 ]
 
-# Verified 2026-05 against /v1/music docs.
 MUSIC_MODELS = [
     "music_v1",
+    "music_v2",
+    "music_v2_5",
+]
+
+# Output formats accepted by /v1/music in addition to OUTPUT_FORMATS
+MUSIC_EXTRA_OUTPUT_FORMATS = [
+    "mp3_48000_128",
+    "mp3_48000_192",
+    "mp3_48000_240",
+    "mp3_48000_320",
+]
+
+DIALOGUE_MODELS = [
+    "eleven_v3",
+    "eleven_v4",
+]
+
+VOICE_DESIGN_MODELS = [
+    "eleven_multilingual_ttv_v2",
+    "eleven_ttv_v3",
 ]
 
 # Per-endpoint max durations (seconds)
@@ -215,14 +233,13 @@ VOICE_MAP = {
 
 # Model character limits
 _MODEL_CHAR_LIMITS = {
+    "eleven_v4": 10000,
     "eleven_v3": 5000,
     "eleven_multilingual_v2": 10000,
     "eleven_flash_v2_5": 40000,
     "eleven_turbo_v2_5": 40000,
-    "eleven_flash_v2": 40000,
+    "eleven_flash_v2": 30000,
     "eleven_turbo_v2": 30000,
-    "eleven_multilingual_v1": 10000,
-    "eleven_monolingual_v1": 5000,
 }
 
 # v3 expression / audio tags (for VoiceTagInserter helper). Names from

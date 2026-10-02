@@ -1,9 +1,9 @@
 # ComfyUI-ElevenLabs-Pro
 
-Full-featured ElevenLabs API integration for ComfyUI. **26 nodes**: TTS,
-Speech-to-Speech, Sound Effects, Music, Voice Cloning / Design,
-Multi-speaker Dialogue, Speech-to-Text, Audio Isolation — plus 11
-pure-Python audio utility nodes (subtitle export, concat, normalize,
+Full-featured ElevenLabs API integration for ComfyUI. **30 nodes**: TTS,
+Speech-to-Speech, Sound Effects, Music, Voice Cloning / Design / Remix,
+Multi-speaker Dialogue, Speech-to-Text, Forced Alignment, Audio Isolation —
+plus 11 pure-Python audio utility nodes (subtitle export, concat, normalize,
 trim, channels, save, cost estimator, …).
 
 ## Install
@@ -23,38 +23,42 @@ the `ElevenLabs Pro - API Key` node. Keys are scrubbed from any raised
 error message so they never end up in ComfyUI logs or saved workflow
 PNG metadata.
 
-## Nodes (26 total)
+## Nodes (30 total)
 
-### Voice — 6 nodes
+### Voice — 7 nodes
 | Node | Purpose |
 |------|---------|
 | `Voice Selector` | Pick a predefined voice OR pass a custom `voice_id`. |
 | `Fetch Voices` | List your account's voices (premade / cloned / generated / professional) with search + gender filter. Cached 5 min. |
 | `Get Voice By Name` | Look up a `voice_id` by name (exact / contains / starts-with). |
 | `Voice Clone` | Instant voice clone from up to 8 audio samples. **`create=False` by default** — flip to True to actually upload (prevents accidental slot/credit burn on workflow re-queue). |
-| `Voice Design` | Generate 3 voice previews from a text description. Returns all 3 IDs; pick one with `preview_index`. |
-| `Voice Create` | Save a designed preview as a permanent library voice. Also gated by `create=True`. |
+| `Voice Design` | Generate 3 voice previews from a text description (`eleven_multilingual_ttv_v2` or `eleven_ttv_v3`, optional reference audio, loudness, guidance, seed). Returns all 3 IDs; pick one with `preview_index`. Sample text under 100 characters is auto-generated. |
+| `Voice Remix` | Remix an existing voice from a description of the changes. Same outputs as Voice Design. |
+| `Voice Create` | Save a designed or remixed preview as a permanent library voice (description of 20-1000 characters required). Also gated by `create=True`. |
 
-### TTS — 4 nodes
+### TTS — 5 nodes
 | Node | Purpose |
 |------|---------|
-| `Text to Speech` | Full TTS with every API parameter (stability, similarity, style, speed, speaker boost, language, normalization, seed, previous/next text, PVC-as-IVC, enable_logging, pronunciation dicts). Auto-validates eleven_v3 normalization, turbo language requirement. |
-| `TTS with Timestamps` | TTS + word/character-level alignment JSON. |
-| `Text to Dialogue` | Multi-speaker (up to 10) eleven_v3 dialogue. Total text length validated. |
+| `Text to Speech` | Full TTS with every API parameter (stability, similarity, style, speed, speaker boost, language, normalization, seed, previous/next text, PVC-as-IVC, enable_logging, pronunciation dicts, Japanese language normalization). Auto-validates eleven_v3 normalization, turbo language requirement. |
+| `TTS with Timestamps` | TTS + character-level alignment JSON, with voice settings, language, normalization and previous/next text. |
+| `Text to Dialogue` | Multi-speaker (up to 10) `eleven_v3` / `eleven_v4` dialogue with previous/future text, PVC-as-IVC and pronunciation dictionaries. Total text length validated. |
+| `Text to Dialogue with Timestamps` | Same inputs as Text to Dialogue, plus character-level alignment JSON and per-voice segments JSON. |
 | `Voice Tag Inserter` | Pure-text helper — dropdown of v3 expression tags (`[whispers]`, `[laughs]`, `[excited]`, …) injected into your prompt. |
 
-### Audio (API) — 4 nodes
+### Audio (API) — 5 nodes
 | Node | Purpose |
 |------|---------|
 | `Speech to Speech` | Transform an AUDIO input to another voice. |
-| `Sound Effects` | Text → SFX with duration / prompt_influence / loop / seed. Uses correct `eleven_text_to_sound_v2` model id. |
+| `Sound Effects` | Text → SFX with duration (or model-chosen duration) / prompt_influence / loop / seed. Uses the `eleven_text_to_sound_v2` model id. |
 | `Audio Isolation` | Remove background noise / isolate vocals. |
-| `Speech to Text` | Transcribe AUDIO via `scribe_v2` or `scribe_v1`, with diarization, audio-event tagging, keyterms, no-verbatim, temperature, seed. |
+| `Speech to Text` | Transcribe AUDIO via `scribe_v2` or `scribe_v2_medical`, with diarization, speaker roles, multichannel, audio-event tagging, keyterms, no-verbatim, transcript editing (`edited_text` output), temperature, seed. |
+| `Forced Alignment` | Align a known transcript to AUDIO and get word-level timings (feeds Subtitle Export). |
 
-### Music — 1 node
+### Music — 2 nodes
 | Node | Purpose |
 |------|---------|
-| `Music Generation` | Text-prompt OR `composition_plan` JSON. 3 – 600 s. Force instrumental, respect section durations, C2PA signing. |
+| `Music Generation` | Text-prompt OR `composition_plan` JSON, with `music_v1` / `music_v2` / `music_v2_5`. 3 – 600 s. Lyrics, generation mode, finetunes, force instrumental, respect section durations, C2PA signing. |
+| `Music Composition Plan` | Prompt → composition plan JSON to edit and feed into Music Generation. |
 
 ### Audio (pure-Python utilities) — 7 nodes
 | Node | Purpose |
@@ -82,23 +86,31 @@ PNG metadata.
 ## Models
 
 ### TTS
-- `eleven_v3` — flagship, expressive, supports `[whispers]`/`[laughs]`/v3 tags (5 000 char limit, auto-forces normalization=off)
+- `eleven_v4` — most expressive, 90+ languages (10 000 char limit)
+- `eleven_v3` — expressive, supports `[whispers]`/`[laughs]`/v3 tags (5 000 char limit, auto-forces normalization=off)
 - `eleven_multilingual_v2` (10 000 chars)
 - `eleven_flash_v2_5`, `eleven_turbo_v2_5` (40 000 chars, **require explicit language**)
-- `eleven_flash_v2`, `eleven_turbo_v2` (English-only, 40 000 / 30 000)
-- `eleven_multilingual_v1`, `eleven_monolingual_v1` (legacy)
+- `eleven_flash_v2`, `eleven_turbo_v2` (English-only, 30 000 chars)
+
+`eleven_monolingual_v1` and `eleven_multilingual_v1` were removed by ElevenLabs on 2026-07-09.
+
+### Dialogue
+- `eleven_v3`, `eleven_v4`
 
 ### Speech-to-Speech
 - `eleven_multilingual_sts_v2`, `eleven_english_sts_v2`
 
 ### Speech-to-Text
-- `scribe_v2`, `scribe_v1`
+- `scribe_v2`, `scribe_v2_medical` (`scribe_v1` was removed on 2026-07-09)
+
+### Voice Design
+- `eleven_multilingual_ttv_v2`, `eleven_ttv_v3`
 
 ### SFX
 - `eleven_text_to_sound_v2`
 
 ### Music
-- `music_v1`
+- `music_v1`, `music_v2`, `music_v2_5`
 
 ## Output formats
 
@@ -107,6 +119,7 @@ mp3 (44.1k @ 192/128/96/64/32, 24k @ 48, 22k @ 32),
 wav (44.1k / 48k / 32k / 24k / 22k / 16k / 8k),
 pcm (44.1k / 48k / 32k / 24k / 22k / 16k / 8k),
 opus (48k @ 192/128/96/64/32).
+Music Generation also accepts mp3 (48k @ 128/192/240/320).
 
 The PCM path is decoded directly as int16 little-endian mono so it works
 without an MP3 decoder. WAV / MP3 / Opus use `soundfile` first, fall
@@ -139,7 +152,7 @@ cd ComfyUI/custom_nodes/ComfyUI-ElevenLabs-Pro
 python -m pytest tests/ -c pytest.ini
 ```
 
-**101 / 101 passing.** All HTTP mocked — no real ElevenLabs credits
+**153 / 153 passing.** All HTTP mocked — no real ElevenLabs credits
 consumed during testing.
 
 ## License

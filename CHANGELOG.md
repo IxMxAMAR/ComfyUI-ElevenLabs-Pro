@@ -5,6 +5,63 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] — 2026-10-02
+
+Tracks the current ElevenLabs API: new models, new parameters, four new
+nodes, and fixes for endpoints that were deprecated or removed.
+
+### Removed
+
+- **`eleven_monolingual_v1`, `eleven_multilingual_v1` and `scribe_v1`** are no
+  longer in the model dropdowns. ElevenLabs removed all three on 2026-07-09.
+  Saved workflows that select one of them need another model.
+
+### Added
+
+- **New nodes:** `Voice Remix`, `Forced Alignment`,
+  `Text to Dialogue with Timestamps` and `Music Composition Plan`.
+- **Models:** `eleven_v4` (TTS and Text to Dialogue), `scribe_v2_medical`
+  (Speech to Text), `music_v2` and `music_v2_5` (Music Generation),
+  `eleven_ttv_v3` (Voice Design).
+- **Text to Speech:** `apply_language_text_normalization` (Japanese).
+- **TTS with Timestamps:** `style`, `speed`, `use_speaker_boost`, `language`,
+  `apply_text_normalization`, `previous_text`, `next_text`.
+- **Text to Dialogue:** `previous_text`, `future_text`, `use_pvc_as_ivc`,
+  `pronunciation_dictionary_locators`; `output_format` now offers every
+  format the endpoint supports.
+- **Speech to Text:** `transcript_edit` with a new `edited_text` output,
+  `use_multi_channel`, `detect_speaker_roles`.
+- **Music Generation:** `finetune_id`, `finetune_strength`,
+  `use_phonetic_names`, `generation_mode`, `lyrics_text`, and the
+  `mp3_48000_*` output formats.
+- **Voice Design:** `model`, `auto_generate_text`, `loudness`,
+  `guidance_scale`, `seed`, `should_enhance`, `reference_audio`,
+  `prompt_strength`.
+- **Voice Clone / Voice Create:** `labels`.
+- **Sound Effects:** `auto_duration` lets the model pick the length.
+
+### Changed
+
+- **Voice Design** calls `POST /v1/text-to-voice/design`; the old
+  `create-previews` endpoint is deprecated. Sample text shorter than the API's
+  100-character minimum is replaced by auto-generated text.
+- **Voice Create** calls `POST /v1/text-to-voice`. The API requires a
+  `voice_description` of 20-1000 characters when saving.
+
+### Fixed
+
+- **TTS with Timestamps** always returned one second of silence: the audio
+  is in the `audio_base64` response field.
+- **Speech to Text** `tag_audio_events=False` was never sent, so the API's
+  default (tagging on) applied. It is now sent explicitly. `keyterms` are
+  sent as a list instead of one comma-joined term.
+- **Audio Isolation** decoded the always-MP3 response using the selected
+  `output_format`; it no longer sends that parameter and always decodes MP3.
+- **Music Generation** with a `composition_plan` no longer sends the
+  prompt-only fields `music_length_ms` and `force_instrumental`; with a
+  prompt it no longer sends `respect_sections_durations`.
+- `eleven_flash_v2` character limit is 30 000.
+
 ## [2.2.0] — 2026-05-17
 
 Re-publish of v2.1.0 with corrected registry version number (2.1.x was

@@ -1,13 +1,13 @@
 """
 ElevenLabs nodes for ComfyUI.
 
-15 core API nodes + 11 utility nodes (v2.1):
+19 core API nodes + 11 utility nodes:
 
   Voice:    VoiceSelector, FetchVoices, GetVoiceByName, VoiceClone,
-            VoiceDesign, VoiceCreate
-  TTS:      TTS, TTSTimestamps, Dialogue, VoiceTagInserter
-  Audio:    STS, SFX, AudioIsolation, STT
-  Music:    Music
+            VoiceDesign, VoiceRemix, VoiceCreate
+  TTS:      TTS, TTSTimestamps, Dialogue, DialogueTimestamps, VoiceTagInserter
+  Audio:    STS, SFX, AudioIsolation, STT, ForcedAlignment
+  Music:    Music, MusicPlan
   Utils:    SubtitleExport, AudioConcat, AudioNormalize, AudioMetadata,
             AudioChannels, AudioTrim, CostEstimator, VoiceSettingsPreset,
             SaveAudio
@@ -40,6 +40,9 @@ try:
         SFX_MAX_DURATION,
         MUSIC_MODELS,
         MUSIC_MAX_SECONDS,
+        MUSIC_EXTRA_OUTPUT_FORMATS,
+        DIALOGUE_MODELS,
+        VOICE_DESIGN_MODELS,
         OUTPUT_FORMATS,
         LANGUAGE_OPTIONS,
         LANGUAGE_MAP,
@@ -70,6 +73,9 @@ except ImportError:
     SFX_MAX_DURATION,
     MUSIC_MODELS,
     MUSIC_MAX_SECONDS,
+    MUSIC_EXTRA_OUTPUT_FORMATS,
+    DIALOGUE_MODELS,
+    VOICE_DESIGN_MODELS,
     OUTPUT_FORMATS,
     LANGUAGE_OPTIONS,
     LANGUAGE_MAP,
@@ -130,6 +136,33 @@ def _enforce_v3_normalization(model: str, requested: str) -> str:
         print(f"[ElevenLabs Pro] {model} requires apply_text_normalization='off' — overriding.")
         return "off"
     return requested
+
+
+def _parse_labels(raw: str):
+    """Parse an optional JSON object of voice labels (accent, gender, age, language)."""
+    if not raw or not raw.strip():
+        return None
+    try:
+        labels = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"labels is not valid JSON: {exc}")
+    if not isinstance(labels, dict):
+        raise ValueError('labels must be a JSON object, e.g. {"accent": "british"}.')
+    return labels
+
+
+def _parse_pronunciation_locators(raw: str):
+    """Parse the optional pronunciation_dictionary_locators JSON array."""
+    if not raw or not raw.strip():
+        return None
+    try:
+        locators = json.loads(raw.strip())
+    except json.JSONDecodeError as exc:
+        # Surface to user — silent swallow is bad UX and was a regression risk
+        raise ValueError(
+            f"pronunciation_dictionary_locators is not valid JSON: {exc}"
+        )
+    return locators if isinstance(locators, list) and locators else None
 
 
 # ============================================================
@@ -302,6 +335,10 @@ class ElevenLabsPro_VoiceClone(InputCacheMixin):
                 "audio8": ("AUDIO",),
                 "description": ("STRING", {"default": "", "tooltip": "Description of the voice."}),
                 "remove_background_noise": ("BOOLEAN", {"default": False}),
+                "labels": ("STRING", {
+                    "default": "",
+                    "tooltip": 'Optional JSON object of voice labels, e.g. {"accent": "british", "gender": "female"}.',
+                }),
             },
         }
 
@@ -313,7 +350,7 @@ class ElevenLabsPro_VoiceClone(InputCacheMixin):
     def clone(self, api_key, voice_name, audio1, create=False,
               audio2=None, audio3=None, audio4=None,
               audio5=None, audio6=None, audio7=None, audio8=None,
-              description="", remove_background_noise=False):
+              description="", remove_background_noise=False, labels=""):
 
         provided_samples = [a for a in [audio1, audio2, audio3, audio4,
                                          audio5, audio6, audio7, audio8] if a is not None]
@@ -339,6 +376,9 @@ class ElevenLabsPro_VoiceClone(InputCacheMixin):
             data["description"] = description
         if remove_background_noise:
             data["remove_background_noise"] = "true"
+        parsed_labels = _parse_labels(labels)
+        if parsed_labels:
+            data["labels"] = json.dumps(parsed_labels)
 
         resp = api_post(
             f"{ELEVENLABS_API_BASE}/v1/voices/add",
@@ -352,6 +392,45 @@ class ElevenLabsPro_VoiceClone(InputCacheMixin):
         voice_id = resp.json().get("voice_id", "")
         print(f"[ElevenLabs Pro] Voice cloned: {voice_id} ({voice_name})")
         return (voice_id, f"CREATED voice_id={voice_id}")
+
+
+def _preview_body(text, auto_generate_text, loudness, guidance_scale, default_guidance, seed):
+    """Request fields shared by the voice design and remix endpoints."""
+    text = (text or "").strip()
+    if not text and not auto_generate_text:
+        raise ValueError("Text is required for voice preview.")
+    body = {}
+    # The API requires 100-1000 characters of sample text; anything shorter is auto-generated.
+    if auto_generate_text or len(text) < 100:
+        body["auto_generate_text"] = True
+    else:
+        body["text"] = text
+    if loudness != 0.5:
+        body["loudness"] = loudness
+    if guidance_scale != default_guidance:
+        body["guidance_scale"] = guidance_scale
+    if seed > 0:
+        body["seed"] = seed
+    return body
+
+
+def _preview_outputs(result, preview_index):
+    """Pick one preview from a design/remix response; list every generated_voice_id."""
+    previews = result.get("previews", [])
+    if not previews:
+        raise RuntimeError("No voice previews returned by API.")
+
+    idx = max(0, min(preview_index, len(previews) - 1))
+    chosen = previews[idx]
+
+    audio_b64 = chosen.get("audio_base_64", "")
+    if audio_b64:
+        audio = audio_bytes_to_comfy(base64.b64decode(audio_b64), "mp3_44100_128")
+    else:
+        audio = silence_audio(1.0)
+
+    all_ids = "\n".join(p.get("generated_voice_id", "") for p in previews)
+    return (audio, chosen.get("generated_voice_id", ""), all_ids,)
 
 
 class ElevenLabsPro_VoiceDesign(InputCacheMixin):
@@ -370,18 +449,49 @@ class ElevenLabsPro_VoiceDesign(InputCacheMixin):
                 "text": ("STRING", {
                     "multiline": True,
                     "default": "Hello! This is a preview of the designed voice.",
-                    "tooltip": "Sample text to generate the preview with.",
+                    "tooltip": "Sample text, 100-1000 characters. Shorter text is replaced by auto-generated sample text.",
                 }),
                 "voice_description": ("STRING", {
                     "multiline": True,
                     "default": "",
-                    "tooltip": "Describe the voice you want: age, gender, accent, tone, etc.",
+                    "tooltip": "Describe the voice you want: age, gender, accent, tone, etc. 20-1000 characters.",
                 }),
             },
             "optional": {
                 "preview_index": ("INT", {
                     "default": 0, "min": 0, "max": 2,
                     "tooltip": "Which of the 3 previews to expose on preview_audio output (0..2).",
+                }),
+                "model": (VOICE_DESIGN_MODELS, {
+                    "default": "eleven_multilingual_ttv_v2",
+                    "tooltip": "Voice design model. eleven_ttv_v3 is the only one that accepts reference_audio.",
+                }),
+                "auto_generate_text": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Generate the sample text from the voice description instead of using `text`.",
+                }),
+                "loudness": ("FLOAT", {
+                    "default": 0.5, "min": -1.0, "max": 1.0, "step": 0.01,
+                    "tooltip": "Volume of the generated voice. -1 = quietest, 1 = loudest, 0 is roughly -24 LUFS.",
+                }),
+                "guidance_scale": ("FLOAT", {
+                    "default": 5.0, "min": 0.0, "max": 100.0, "step": 0.5,
+                    "tooltip": "How closely the voice follows the description. High values can sound robotic.",
+                }),
+                "seed": ("INT", {
+                    "default": 0, "min": 0, "max": 2147483647,
+                    "tooltip": "Same seed with the same inputs produces the same voice. 0 = random.",
+                }),
+                "should_enhance": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Expand a short description into a more detailed one before generating.",
+                }),
+                "reference_audio": ("AUDIO", {
+                    "tooltip": "Reference voice to design from. Only supported with eleven_ttv_v3.",
+                }),
+                "prompt_strength": ("FLOAT", {
+                    "default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01,
+                    "tooltip": "Balance of description vs reference_audio: 0 = almost no description influence, 1 = almost no reference influence. Used only with reference_audio.",
                 }),
             },
         }
@@ -391,50 +501,109 @@ class ElevenLabsPro_VoiceDesign(InputCacheMixin):
     FUNCTION = "design"
     CATEGORY = f"{CATEGORY_BASE}/Voice"
 
-    def design(self, api_key, text, voice_description, preview_index=0):
-        if not text or not text.strip():
-            raise ValueError("Text is required for voice preview.")
+    def design(self, api_key, text, voice_description, preview_index=0,
+               model="eleven_multilingual_ttv_v2", auto_generate_text=False,
+               loudness=0.5, guidance_scale=5.0, seed=0, should_enhance=False,
+               reference_audio=None, prompt_strength=0.5):
         if not voice_description or not voice_description.strip():
             raise ValueError("Voice description is required.")
 
+        body = _preview_body(text, auto_generate_text, loudness, guidance_scale, 5.0, seed)
+        body["voice_description"] = voice_description.strip()
+        if model != "eleven_multilingual_ttv_v2":
+            body["model_id"] = model
+        if should_enhance:
+            body["should_enhance"] = True
+        if reference_audio is not None:
+            wav_bytes, _ = comfy_audio_to_bytes(reference_audio)
+            body["reference_audio_base64"] = base64.b64encode(wav_bytes).decode("ascii")
+            body["prompt_strength"] = prompt_strength
+
         key = get_api_key(api_key)
-
-        body = {
-            "text": text.strip(),
-            "voice_description": voice_description.strip(),
-        }
-
         resp = api_post(
-            f"{ELEVENLABS_API_BASE}/v1/text-to-voice/create-previews",
+            f"{ELEVENLABS_API_BASE}/v1/text-to-voice/design",
             key,
             timeout=120,
             json=body,
             headers=api_headers(key),
         )
         check_response(resp, api_key=key)
-        result = resp.json()
+        return _preview_outputs(resp.json(), preview_index)
 
-        previews = result.get("previews", [])
-        if not previews:
-            raise RuntimeError("No voice previews returned by API.")
 
-        # Pick the requested preview index, clamped
-        idx = max(0, min(preview_index, len(previews) - 1))
-        chosen = previews[idx]
-        generated_voice_id = chosen.get("generated_voice_id", "")
+class ElevenLabsPro_VoiceRemix(InputCacheMixin):
+    """Remix an existing voice from a text description of the changes.
 
-        audio_b64 = chosen.get("audio_base_64", "")
-        if audio_b64:
-            audio_bytes = base64.b64decode(audio_b64)
-            # API returns preview audio as mp3_44100_128 by spec
-            audio = audio_bytes_to_comfy(audio_bytes, "mp3_44100_128")
-        else:
-            audio = silence_audio(1.0)
+    Returns the same outputs as Voice Design: pick a preview and save it
+    permanently with VoiceCreate.
+    """
 
-        # Collect all generated_voice_ids so the user can re-pick a different preview
-        all_ids = "\n".join(p.get("generated_voice_id", "") for p in previews)
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "api_key": ("STRING", {"default": "", "password": True}),
+                "voice_id": ("STRING", {"default": "", "tooltip": "Voice ID of the voice to remix."}),
+                "voice_description": ("STRING", {
+                    "multiline": True,
+                    "default": "",
+                    "tooltip": "Describe the changes to make to the voice. 5-1000 characters.",
+                }),
+                "text": ("STRING", {
+                    "multiline": True,
+                    "default": "Hello! This is a preview of the remixed voice.",
+                    "tooltip": "Sample text, 100-1000 characters. Shorter text is replaced by auto-generated sample text.",
+                }),
+            },
+            "optional": {
+                "preview_index": ("INT", {
+                    "default": 0, "min": 0, "max": 2,
+                    "tooltip": "Which of the previews to expose on preview_audio output (0..2).",
+                }),
+                "auto_generate_text": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Generate the sample text from the voice description instead of using `text`.",
+                }),
+                "loudness": ("FLOAT", {
+                    "default": 0.5, "min": -1.0, "max": 1.0, "step": 0.01,
+                    "tooltip": "Volume of the generated voice. -1 = quietest, 1 = loudest, 0 is roughly -24 LUFS.",
+                }),
+                "guidance_scale": ("FLOAT", {
+                    "default": 2.0, "min": 0.0, "max": 100.0, "step": 0.5,
+                    "tooltip": "How closely the remix follows the description. High values can sound robotic.",
+                }),
+                "seed": ("INT", {
+                    "default": 0, "min": 0, "max": 2147483647,
+                    "tooltip": "Same seed with the same inputs produces the same voice. 0 = random.",
+                }),
+            },
+        }
 
-        return (audio, generated_voice_id, all_ids,)
+    RETURN_TYPES = ("AUDIO", "STRING", "STRING",)
+    RETURN_NAMES = ("preview_audio", "generated_voice_id", "all_voice_ids",)
+    FUNCTION = "remix"
+    CATEGORY = f"{CATEGORY_BASE}/Voice"
+
+    def remix(self, api_key, voice_id, voice_description, text, preview_index=0,
+              auto_generate_text=False, loudness=0.5, guidance_scale=2.0, seed=0):
+        if not voice_id or not voice_id.strip():
+            raise ValueError("voice_id is required.")
+        if not voice_description or not voice_description.strip():
+            raise ValueError("Voice description is required.")
+
+        body = _preview_body(text, auto_generate_text, loudness, guidance_scale, 2.0, seed)
+        body["voice_description"] = voice_description.strip()
+
+        key = get_api_key(api_key)
+        resp = api_post(
+            f"{ELEVENLABS_API_BASE}/v1/text-to-voice/{voice_id.strip()}/remix",
+            key,
+            timeout=120,
+            json=body,
+            headers=api_headers(key),
+        )
+        check_response(resp, api_key=key)
+        return _preview_outputs(resp.json(), preview_index)
 
 
 class ElevenLabsPro_VoiceCreate(InputCacheMixin):
@@ -450,7 +619,7 @@ class ElevenLabsPro_VoiceCreate(InputCacheMixin):
                 "api_key": ("STRING", {"default": "", "password": True}),
                 "generated_voice_id": ("STRING", {
                     "default": "",
-                    "tooltip": "The generated_voice_id from Voice Design node.",
+                    "tooltip": "The generated_voice_id from the Voice Design or Voice Remix node.",
                 }),
                 "voice_name": ("STRING", {
                     "default": "My Designed Voice",
@@ -464,7 +633,11 @@ class ElevenLabsPro_VoiceCreate(InputCacheMixin):
             "optional": {
                 "voice_description": ("STRING", {
                     "default": "",
-                    "tooltip": "Optional description for the saved voice.",
+                    "tooltip": "Description for the saved voice. Required by the API when create=True: 20-1000 characters.",
+                }),
+                "labels": ("STRING", {
+                    "default": "",
+                    "tooltip": 'Optional JSON object of voice labels, e.g. {"accent": "british", "gender": "female"}.',
                 }),
             },
         }
@@ -474,24 +647,31 @@ class ElevenLabsPro_VoiceCreate(InputCacheMixin):
     FUNCTION = "create"
     CATEGORY = f"{CATEGORY_BASE}/Voice"
 
-    def create(self, api_key, generated_voice_id, voice_name, create=False, voice_description=""):
+    def create(self, api_key, generated_voice_id, voice_name, create=False,
+               voice_description="", labels=""):
         if not generated_voice_id or not generated_voice_id.strip():
             raise ValueError("generated_voice_id is required. Connect from Voice Design node.")
 
         if not create:
             return ("", f"DRY-RUN: would save '{voice_name}' (generated_voice_id={generated_voice_id[:12]}...). Set create=True to save.")
 
+        description = (voice_description or "").strip()
+        if len(description) < 20:
+            raise ValueError("voice_description must be 20-1000 characters to save a voice.")
+
         key = get_api_key(api_key)
 
         body = {
             "voice_name": voice_name,
+            "voice_description": description,
             "generated_voice_id": generated_voice_id.strip(),
         }
-        if voice_description and voice_description.strip():
-            body["voice_description"] = voice_description.strip()
+        parsed_labels = _parse_labels(labels)
+        if parsed_labels:
+            body["labels"] = parsed_labels
 
         resp = api_post(
-            f"{ELEVENLABS_API_BASE}/v1/text-to-voice/create-voice-from-preview",
+            f"{ELEVENLABS_API_BASE}/v1/text-to-voice",
             key,
             timeout=60,
             json=body,
@@ -587,6 +767,10 @@ class ElevenLabsPro_TTS(InputCacheMixin):
                     "default": "",
                     "tooltip": "JSON array of {\"pronunciation_dictionary_id\": ..., \"version_id\": ...} objects.",
                 }),
+                "apply_language_text_normalization": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Language-specific text normalization for correct pronunciation. Currently only supported for Japanese; can heavily increase latency.",
+                }),
             },
         }
 
@@ -601,7 +785,8 @@ class ElevenLabsPro_TTS(InputCacheMixin):
                  apply_text_normalization="auto", output_format="mp3_44100_128",
                  seed=0, previous_text="", next_text="",
                  use_pvc_as_ivc=False, enable_logging=True,
-                 pronunciation_dictionary_locators=""):
+                 pronunciation_dictionary_locators="",
+                 apply_language_text_normalization=False):
 
         if not text or not text.strip():
             raise ValueError("Text input is empty.")
@@ -643,16 +828,11 @@ class ElevenLabsPro_TTS(InputCacheMixin):
         if next_text and next_text.strip():
             body["next_text"] = next_text.strip()
 
-        if pronunciation_dictionary_locators and pronunciation_dictionary_locators.strip():
-            try:
-                locators = json.loads(pronunciation_dictionary_locators.strip())
-                if isinstance(locators, list) and locators:
-                    body["pronunciation_dictionary_locators"] = locators
-            except json.JSONDecodeError as exc:
-                # Surface to user — silent swallow is bad UX and was a regression risk
-                raise ValueError(
-                    f"pronunciation_dictionary_locators is not valid JSON: {exc}"
-                )
+        locators = _parse_pronunciation_locators(pronunciation_dictionary_locators)
+        if locators:
+            body["pronunciation_dictionary_locators"] = locators
+        if apply_language_text_normalization:
+            body["apply_language_text_normalization"] = True
 
         params = {"output_format": output_format}
         if not enable_logging:
@@ -719,6 +899,28 @@ class ElevenLabsPro_TTSTimestamps(InputCacheMixin):
                     "tooltip": _TT_SEED,
                 }),
                 "enable_logging": ("BOOLEAN", {"default": True, "tooltip": _TT_ENABLE_LOGGING}),
+                "style": ("FLOAT", {
+                    "default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01,
+                    "tooltip": _TT_STYLE,
+                }),
+                "speed": ("FLOAT", {
+                    "default": 1.0, "min": 0.5, "max": 2.0, "step": 0.01,
+                    "tooltip": _TT_SPEED,
+                }),
+                "use_speaker_boost": ("BOOLEAN", {
+                    "default": True,
+                    "tooltip": _TT_SPEAKER_BOOST + " Only sent when disabled.",
+                }),
+                "language": (LANGUAGE_OPTIONS, {
+                    "default": "Auto Detect",
+                    "tooltip": "Language for the model. Auto Detect lets the model decide.",
+                }),
+                "apply_text_normalization": (["auto", "on", "off"], {
+                    "default": "auto",
+                    "tooltip": "Text normalization mode. eleven_v3 is auto-forced to 'off'.",
+                }),
+                "previous_text": ("STRING", {"default": "", "tooltip": _TT_PREVIOUS_TEXT}),
+                "next_text": ("STRING", {"default": "", "tooltip": _TT_NEXT_TEXT}),
             },
         }
 
@@ -729,7 +931,10 @@ class ElevenLabsPro_TTSTimestamps(InputCacheMixin):
 
     def generate(self, api_key, text, voice_id, model,
                  stability=0.5, similarity_boost=0.75,
-                 output_format="mp3_44100_128", seed=0, enable_logging=True):
+                 output_format="mp3_44100_128", seed=0, enable_logging=True,
+                 style=0.0, speed=1.0, use_speaker_boost=True,
+                 language="Auto Detect", apply_text_normalization="auto",
+                 previous_text="", next_text=""):
 
         if not text or not text.strip():
             raise ValueError("Text input is empty.")
@@ -747,10 +952,23 @@ class ElevenLabsPro_TTSTimestamps(InputCacheMixin):
                 "stability": stability,
                 "similarity_boost": similarity_boost,
             },
-            "apply_text_normalization": _enforce_v3_normalization(model, "auto"),
+            "apply_text_normalization": _enforce_v3_normalization(model, apply_text_normalization),
         }
+        if style != 0.0:
+            body["voice_settings"]["style"] = style
+        if speed != 1.0:
+            body["voice_settings"]["speed"] = speed
+        if not use_speaker_boost:
+            body["voice_settings"]["use_speaker_boost"] = False
+        lang_code = LANGUAGE_MAP.get(language, "")
+        if lang_code:
+            body["language_code"] = lang_code
         if seed > 0:
             body["seed"] = seed
+        if previous_text and previous_text.strip():
+            body["previous_text"] = previous_text.strip()
+        if next_text and next_text.strip():
+            body["next_text"] = next_text.strip()
 
         params = {"output_format": output_format}
         if not enable_logging:
@@ -769,7 +987,7 @@ class ElevenLabsPro_TTSTimestamps(InputCacheMixin):
         result = resp.json()
 
         # Audio is base64-encoded in the response
-        audio_b64 = result.get("audio_base_64", "")
+        audio_b64 = result.get("audio_base64", "")
         if audio_b64:
             audio_bytes = base64.b64decode(audio_b64)
             audio = audio_bytes_to_comfy(audio_bytes, output_format)
@@ -901,6 +1119,10 @@ class ElevenLabsPro_SFX(InputCacheMixin):
                     "default": 0, "min": 0, "max": 4294967295,
                     "tooltip": _TT_SEED,
                 }),
+                "auto_duration": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Let the model pick the duration from the prompt. Ignores `duration`.",
+                }),
             },
         }
 
@@ -911,12 +1133,13 @@ class ElevenLabsPro_SFX(InputCacheMixin):
 
     def generate(self, api_key, text, model="eleven_text_to_sound_v2",
                  duration=5.0, prompt_influence=0.3,
-                 loop=False, output_format="mp3_44100_128", seed=0):
+                 loop=False, output_format="mp3_44100_128", seed=0,
+                 auto_duration=False):
 
         if not text or not text.strip():
             raise ValueError("Text description is empty.")
         # Clamp defensively even though slider min/max should prevent OOB
-        if duration < 0.5 or duration > SFX_MAX_DURATION:
+        if not auto_duration and (duration < 0.5 or duration > SFX_MAX_DURATION):
             raise ValueError(f"duration must be between 0.5 and {SFX_MAX_DURATION} seconds (got {duration}).")
 
         key = get_api_key(api_key)
@@ -924,9 +1147,10 @@ class ElevenLabsPro_SFX(InputCacheMixin):
         body = {
             "text": text,
             "model_id": model,
-            "duration_seconds": duration,
             "prompt_influence": prompt_influence,
         }
+        if not auto_duration:
+            body["duration_seconds"] = duration
         if loop:
             body["loop"] = True
         if seed > 0:
@@ -962,7 +1186,7 @@ class ElevenLabsPro_AudioIsolation(InputCacheMixin):
             "optional": {
                 "output_format": (OUTPUT_FORMATS, {
                     "default": "mp3_44100_128",
-                    "tooltip": _TT_OUTPUT_FMT,
+                    "tooltip": "Unused: the audio isolation endpoint always returns MP3.",
                 }),
             },
         }
@@ -982,11 +1206,10 @@ class ElevenLabsPro_AudioIsolation(InputCacheMixin):
             timeout=300,
             headers={"xi-api-key": key},
             files={"audio": ("input.wav", audio_bytes, "audio/wav")},
-            params={"output_format": output_format},
         )
         check_response(resp, api_key=key)
 
-        return (audio_bytes_to_comfy(resp.content, output_format),)
+        return (audio_bytes_to_comfy(resp.content, "mp3_44100_128"),)
 
 
 # ============================================================
@@ -1031,7 +1254,7 @@ class ElevenLabsPro_STT(InputCacheMixin):
                 }),
                 "diarization_threshold": ("FLOAT", {
                     "default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01,
-                    "tooltip": "Threshold for speaker diarization. Higher = stricter separation.",
+                    "tooltip": "Speaker diarization threshold. Higher = fewer speakers predicted. 0.5 = not sent (model default, usually 0.22). The API accepts 0.1-0.4 and only with diarize on and num_speakers 0.",
                 }),
                 "temperature": ("FLOAT", {
                     "default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01,
@@ -1045,11 +1268,23 @@ class ElevenLabsPro_STT(InputCacheMixin):
                     "default": False,
                     "tooltip": "Remove filler words and stutters (scribe_v2 only).",
                 }),
+                "transcript_edit": ("STRING", {
+                    "default": "",
+                    "tooltip": "Natural-language instruction applied to the final transcript (max 2000 characters), e.g. 'fix punctuation'. Result is on the edited_text output. Cannot be combined with use_multi_channel. Billed extra.",
+                }),
+                "use_multi_channel": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Treat each channel of the audio as one speaker and transcribe channels independently. Words carry a channel_index.",
+                }),
+                "detect_speaker_roles": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Label speakers as 'agent' / 'customer'. Requires diarize; cannot be combined with use_multi_channel. Billed extra.",
+                }),
             },
         }
 
-    RETURN_TYPES = ("STRING", "STRING", "STRING",)
-    RETURN_NAMES = ("text", "language_code", "words_json",)
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING",)
+    RETURN_NAMES = ("text", "language_code", "words_json", "edited_text",)
     FUNCTION = "transcribe"
     CATEGORY = f"{CATEGORY_BASE}/Audio"
 
@@ -1057,16 +1292,20 @@ class ElevenLabsPro_STT(InputCacheMixin):
                    language_code="", tag_audio_events=False, diarize=False,
                    num_speakers=0, timestamps_granularity="word", seed=0,
                    diarization_threshold=0.5, temperature=0.0,
-                   keyterms="", no_verbatim=False):
+                   keyterms="", no_verbatim=False, transcript_edit="",
+                   use_multi_channel=False, detect_speaker_roles=False):
 
         key = get_api_key(api_key)
         audio_bytes, _ = comfy_audio_to_bytes(audio)
 
-        data = {"model_id": model, "timestamps_granularity": timestamps_granularity}
+        # The API tags audio events by default, so False must be sent explicitly.
+        data = {
+            "model_id": model,
+            "timestamps_granularity": timestamps_granularity,
+            "tag_audio_events": "true" if tag_audio_events else "false",
+        }
         if language_code and language_code.strip():
             data["language_code"] = language_code.strip()
-        if tag_audio_events:
-            data["tag_audio_events"] = "true"
         if diarize:
             data["diarize"] = "true"
         if num_speakers > 0:
@@ -1077,10 +1316,18 @@ class ElevenLabsPro_STT(InputCacheMixin):
             data["diarization_threshold"] = str(diarization_threshold)
         if temperature > 0.0:
             data["temperature"] = str(temperature)
-        if keyterms and keyterms.strip():
-            data["keyterms"] = keyterms.strip()
+        terms = [t.strip() for t in keyterms.split(",") if t.strip()]
+        if terms:
+            data["keyterms"] = terms
         if no_verbatim:
             data["no_verbatim"] = "true"
+        if transcript_edit and transcript_edit.strip():
+            data["transcript_edit"] = transcript_edit.strip()
+        if use_multi_channel:
+            data["use_multi_channel"] = "true"
+            data["multichannel_output_style"] = "combined"
+        if detect_speaker_roles:
+            data["detect_speaker_roles"] = "true"
 
         resp = api_post(
             f"{ELEVENLABS_API_BASE}/v1/speech-to-text",
@@ -1096,7 +1343,59 @@ class ElevenLabsPro_STT(InputCacheMixin):
         text = result.get("text", "")
         lang = result.get("language_code", "")
         words = json.dumps(result.get("words", []), indent=2)
-        return (text, lang, words,)
+
+        edited = result.get("edited_transcript") or {}
+        if edited.get("kind") == "error":
+            print(f"[ElevenLabs Pro] Transcript edit failed: {edited.get('message', '')}")
+        return (text, lang, words, edited.get("text", ""),)
+
+
+class ElevenLabsPro_ForcedAlignment(InputCacheMixin):
+    """Align a known transcript to audio and get word-level timings.
+
+    `words_json` has the same shape as Speech to Text, so it feeds Subtitle
+    Export directly.
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "api_key": ("STRING", {"default": "", "password": True}),
+                "audio": ("AUDIO",),
+                "text": ("STRING", {
+                    "multiline": True,
+                    "default": "",
+                    "tooltip": "The transcript spoken in the audio. Any format; speaker labels are not supported.",
+                }),
+            },
+        }
+
+    RETURN_TYPES = ("STRING", "FLOAT",)
+    RETURN_NAMES = ("words_json", "loss",)
+    FUNCTION = "align"
+    CATEGORY = f"{CATEGORY_BASE}/Audio"
+
+    def align(self, api_key, audio, text):
+        if not text or not text.strip():
+            raise ValueError("Text input is empty.")
+
+        key = get_api_key(api_key)
+        audio_bytes, _ = comfy_audio_to_bytes(audio)
+
+        resp = api_post(
+            f"{ELEVENLABS_API_BASE}/v1/forced-alignment",
+            key,
+            timeout=300,
+            headers={"xi-api-key": key},
+            data={"text": text},
+            files={"file": ("input.wav", audio_bytes, "audio/wav")},
+        )
+        check_response(resp, api_key=key)
+
+        result = resp.json()
+        words = json.dumps(result.get("words", []), indent=2)
+        return (words, float(result.get("loss", 0.0)),)
 
 
 # ============================================================
@@ -1113,7 +1412,7 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
                 "api_key": ("STRING", {"default": "", "password": True}),
                 "text1": ("STRING", {"multiline": True, "default": "", "tooltip": "Speaker 1 text."}),
                 "voice_id1": ("STRING", {"default": "", "tooltip": "Speaker 1 voice ID."}),
-                "model": (["eleven_v3"], {"default": "eleven_v3"}),
+                "model": (DIALOGUE_MODELS, {"default": "eleven_v3"}),
             },
             "optional": {},
         }
@@ -1130,7 +1429,7 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
             "apply_text_normalization": (["auto", "on", "off"], {"default": "off",
                 "tooltip": "eleven_v3 requires 'off' — keeping default."}),
             "language": (LANGUAGE_OPTIONS, {"default": "Auto Detect"}),
-            "output_format": (["mp3_44100_192", "opus_48000_192"], {
+            "output_format": (OUTPUT_FORMATS, {
                 "default": "mp3_44100_192",
                 "tooltip": _TT_OUTPUT_FMT,
             }),
@@ -1139,6 +1438,22 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
                 "tooltip": _TT_SEED,
             }),
             "enable_logging": ("BOOLEAN", {"default": True, "tooltip": _TT_ENABLE_LOGGING}),
+            "previous_text": ("STRING", {
+                "default": "",
+                "tooltip": "Context only — up to 100 characters that come right BEFORE this dialogue, for continuity. Not supported by every model.",
+            }),
+            "future_text": ("STRING", {
+                "default": "",
+                "tooltip": "Context only — up to 100 characters that come right AFTER this dialogue, for continuity. Not supported by every model.",
+            }),
+            "use_pvc_as_ivc": ("BOOLEAN", {
+                "default": False,
+                "tooltip": "Use the IVC version of a Professional Voice Clone.",
+            }),
+            "pronunciation_dictionary_locators": ("STRING", {
+                "default": "",
+                "tooltip": "JSON array of {\"pronunciation_dictionary_id\": ..., \"version_id\": ...} objects (up to 3).",
+            }),
         })
         return inputs
 
@@ -1147,7 +1462,8 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
     FUNCTION = "generate"
     CATEGORY = f"{CATEGORY_BASE}/TTS"
 
-    def generate(self, api_key, text1, voice_id1, model="eleven_v3", **kwargs):
+    def _request(self, path, api_key, text1, voice_id1, model, kwargs):
+        """POST the dialogue to `path`; returns (response, output_format)."""
         key = get_api_key(api_key)
         lang_code = LANGUAGE_MAP.get(kwargs.get("language", "Auto Detect"), "")
 
@@ -1178,6 +1494,8 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
         output_format = kwargs.get("output_format", "mp3_44100_192")
         seed = kwargs.get("seed", 0)
         enable_logging = kwargs.get("enable_logging", True)
+        previous_text = kwargs.get("previous_text", "")
+        future_text = kwargs.get("future_text", "")
 
         body = {
             "inputs": inputs,
@@ -1189,13 +1507,22 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
             body["language_code"] = lang_code
         if seed > 0:
             body["seed"] = seed
+        if previous_text and previous_text.strip():
+            body["previous_text"] = previous_text.strip()
+        if future_text and future_text.strip():
+            body["future_text"] = future_text.strip()
+        if kwargs.get("use_pvc_as_ivc", False):
+            body["use_pvc_as_ivc"] = True
+        locators = _parse_pronunciation_locators(kwargs.get("pronunciation_dictionary_locators", ""))
+        if locators:
+            body["pronunciation_dictionary_locators"] = locators
 
         params = {"output_format": output_format}
         if not enable_logging:
             params["enable_logging"] = "false"
 
         resp = api_post(
-            f"{ELEVENLABS_API_BASE}/v1/text-to-dialogue",
+            f"{ELEVENLABS_API_BASE}{path}",
             key,
             timeout=300,
             json=body,
@@ -1203,8 +1530,36 @@ class ElevenLabsPro_Dialogue(InputCacheMixin):
             headers=api_headers(key),
         )
         check_response(resp, api_key=key)
+        return resp, output_format
 
+    def generate(self, api_key, text1, voice_id1, model="eleven_v3", **kwargs):
+        resp, output_format = self._request(
+            "/v1/text-to-dialogue", api_key, text1, voice_id1, model, kwargs,
+        )
         return (audio_bytes_to_comfy(resp.content, output_format),)
+
+
+class ElevenLabsPro_DialogueTimestamps(ElevenLabsPro_Dialogue):
+    """Multi-speaker dialogue with character-level timestamps and per-voice segments."""
+
+    RETURN_TYPES = ("AUDIO", "STRING", "STRING",)
+    RETURN_NAMES = ("audio", "timestamps_json", "voice_segments_json",)
+
+    def generate(self, api_key, text1, voice_id1, model="eleven_v3", **kwargs):
+        resp, output_format = self._request(
+            "/v1/text-to-dialogue/with-timestamps", api_key, text1, voice_id1, model, kwargs,
+        )
+        result = resp.json()
+
+        audio_b64 = result.get("audio_base64", "")
+        if audio_b64:
+            audio = audio_bytes_to_comfy(base64.b64decode(audio_b64), output_format)
+        else:
+            audio = silence_audio(1.0)
+
+        timestamps_json = json.dumps(result.get("alignment", {}), indent=2)
+        segments_json = json.dumps(result.get("voice_segments", []), indent=2)
+        return (audio, timestamps_json, segments_json,)
 
 
 # ============================================================
@@ -1234,11 +1589,11 @@ class ElevenLabsPro_Music(InputCacheMixin):
                 "model": (MUSIC_MODELS, {"default": "music_v1"}),
                 "duration_seconds": ("FLOAT", {
                     "default": 30.0, "min": 3.0, "max": MUSIC_MAX_SECONDS, "step": 1.0,
-                    "tooltip": f"Duration in seconds (3 - {int(MUSIC_MAX_SECONDS)}). Converted to music_length_ms.",
+                    "tooltip": f"Duration in seconds (3 - {int(MUSIC_MAX_SECONDS)}). Converted to music_length_ms. Prompt mode only; a composition_plan sets its own length.",
                 }),
                 "seed": ("INT", {
                     "default": 0, "min": 0, "max": 4294967295,
-                    "tooltip": _TT_SEED,
+                    "tooltip": _TT_SEED + " The API accepts a seed only with composition_plan, not with a prompt.",
                 }),
                 "force_instrumental": ("BOOLEAN", {
                     "default": False,
@@ -1261,9 +1616,30 @@ class ElevenLabsPro_Music(InputCacheMixin):
                     "default": "",
                     "tooltip": "Optional JSON composition_plan object — overrides prompt if set. See ElevenLabs Music API docs.",
                 }),
-                "output_format": (OUTPUT_FORMATS, {
+                "output_format": (OUTPUT_FORMATS + MUSIC_EXTRA_OUTPUT_FORMATS, {
                     "default": "mp3_44100_128",
                     "tooltip": _TT_OUTPUT_FMT,
+                }),
+                "finetune_id": ("STRING", {
+                    "default": "",
+                    "tooltip": "ID of a music finetune to steer the generation with.",
+                }),
+                "finetune_strength": ("FLOAT", {
+                    "default": 1.0, "min": 0.0, "max": 2.0, "step": 0.05,
+                    "tooltip": "How strongly the finetune influences the result. Used only with finetune_id.",
+                }),
+                "use_phonetic_names": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Spell proper names in the prompt phonetically in the lyrics for better pronunciation. Prompt mode only.",
+                }),
+                "generation_mode": (["default", "track", "loop", "ambience"], {
+                    "default": "default",
+                    "tooltip": "Optional hint for what to generate. Prompt mode only. 'default' sends nothing.",
+                }),
+                "lyrics_text": ("STRING", {
+                    "multiline": True,
+                    "default": "",
+                    "tooltip": "Lyrics to use for the generation (max 4000 characters). Prompt mode only.",
                 }),
             },
         }
@@ -1280,7 +1656,10 @@ class ElevenLabsPro_Music(InputCacheMixin):
                  store_for_inpainting=False,
                  sign_with_c2pa=False,
                  composition_plan="",
-                 output_format="mp3_44100_128"):
+                 output_format="mp3_44100_128",
+                 finetune_id="", finetune_strength=1.0,
+                 use_phonetic_names=False, generation_mode="default",
+                 lyrics_text=""):
 
         has_plan = bool(composition_plan and composition_plan.strip())
         if not has_plan and (not prompt or not prompt.strip()):
@@ -1295,9 +1674,6 @@ class ElevenLabsPro_Music(InputCacheMixin):
 
         body = {
             "model_id": model,
-            "music_length_ms": int(round(duration_seconds * 1000)),
-            "force_instrumental": bool(force_instrumental),
-            "respect_sections_durations": bool(respect_sections_durations),
             "store_for_inpainting": bool(store_for_inpainting),
             "sign_with_c2pa": bool(sign_with_c2pa),
         }
@@ -1306,10 +1682,23 @@ class ElevenLabsPro_Music(InputCacheMixin):
                 body["composition_plan"] = json.loads(composition_plan.strip())
             except json.JSONDecodeError as exc:
                 raise ValueError(f"composition_plan is not valid JSON: {exc}")
+            body["respect_sections_durations"] = bool(respect_sections_durations)
         else:
             body["prompt"] = prompt.strip()
+            body["music_length_ms"] = int(round(duration_seconds * 1000))
+            body["force_instrumental"] = bool(force_instrumental)
+            if use_phonetic_names:
+                body["use_phonetic_names"] = True
+            if generation_mode != "default":
+                body["generation_mode"] = generation_mode
+            if lyrics_text and lyrics_text.strip():
+                body["lyrics_text"] = lyrics_text.strip()
         if seed > 0:
             body["seed"] = seed
+        if finetune_id and finetune_id.strip():
+            body["finetune_id"] = finetune_id.strip()
+            if finetune_strength != 1.0:
+                body["finetune_strength"] = finetune_strength
 
         resp = api_post(
             f"{ELEVENLABS_API_BASE}/v1/music",
@@ -1322,6 +1711,64 @@ class ElevenLabsPro_Music(InputCacheMixin):
         check_response(resp, api_key=key)
 
         return (audio_bytes_to_comfy(resp.content, output_format),)
+
+
+class ElevenLabsPro_MusicPlan(InputCacheMixin):
+    """Generate a composition plan from a prompt.
+
+    Edit the JSON if you like, then feed it to the Music node's
+    `composition_plan` input.
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "api_key": ("STRING", {"default": "", "password": True}),
+                "prompt": ("STRING", {
+                    "multiline": True,
+                    "default": "",
+                    "tooltip": "Text description of the song to plan.",
+                }),
+            },
+            "optional": {
+                "model": (MUSIC_MODELS, {"default": "music_v1"}),
+                "duration_seconds": ("FLOAT", {
+                    "default": 0.0, "min": 0.0, "max": MUSIC_MAX_SECONDS, "step": 1.0,
+                    "tooltip": f"Length of the plan in seconds (3 - {int(MUSIC_MAX_SECONDS)}). 0 = let the model choose.",
+                }),
+            },
+        }
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("composition_plan",)
+    FUNCTION = "plan"
+    CATEGORY = f"{CATEGORY_BASE}/Music"
+
+    def plan(self, api_key, prompt, model="music_v1", duration_seconds=0.0):
+        if not prompt or not prompt.strip():
+            raise ValueError("Prompt is empty.")
+        if duration_seconds and not (3.0 <= duration_seconds <= MUSIC_MAX_SECONDS):
+            raise ValueError(
+                f"duration_seconds must be 0 or between 3 and {int(MUSIC_MAX_SECONDS)} (got {duration_seconds})."
+            )
+
+        key = get_api_key(api_key)
+
+        body = {"prompt": prompt.strip(), "model_id": model}
+        if duration_seconds:
+            body["music_length_ms"] = int(round(duration_seconds * 1000))
+
+        resp = api_post(
+            f"{ELEVENLABS_API_BASE}/v1/music/plan",
+            key,
+            timeout=120,
+            json=body,
+            headers=api_headers(key),
+        )
+        check_response(resp, api_key=key)
+
+        return (json.dumps(resp.json(), indent=2),)
 
 
 # ============================================================
@@ -1820,8 +2267,6 @@ class ElevenLabsPro_CostEstimator:
         "eleven_turbo_v2_5": 0.5,
         "eleven_flash_v2": 0.5,
         "eleven_turbo_v2": 0.5,
-        "eleven_multilingual_v1": 1.0,
-        "eleven_monolingual_v1": 1.0,
     }
 
     @classmethod
@@ -1967,6 +2412,7 @@ NODE_CLASS_MAPPINGS = {
     "ElevenLabsPro_GetVoiceByName": ElevenLabsPro_GetVoiceByName,
     "ElevenLabsPro_VoiceClone": ElevenLabsPro_VoiceClone,
     "ElevenLabsPro_VoiceDesign": ElevenLabsPro_VoiceDesign,
+    "ElevenLabsPro_VoiceRemix": ElevenLabsPro_VoiceRemix,
     "ElevenLabsPro_VoiceCreate": ElevenLabsPro_VoiceCreate,
     "ElevenLabsPro_TTS": ElevenLabsPro_TTS,
     "ElevenLabsPro_TTSTimestamps": ElevenLabsPro_TTSTimestamps,
@@ -1974,8 +2420,11 @@ NODE_CLASS_MAPPINGS = {
     "ElevenLabsPro_SFX": ElevenLabsPro_SFX,
     "ElevenLabsPro_AudioIsolation": ElevenLabsPro_AudioIsolation,
     "ElevenLabsPro_STT": ElevenLabsPro_STT,
+    "ElevenLabsPro_ForcedAlignment": ElevenLabsPro_ForcedAlignment,
     "ElevenLabsPro_Dialogue": ElevenLabsPro_Dialogue,
+    "ElevenLabsPro_DialogueTimestamps": ElevenLabsPro_DialogueTimestamps,
     "ElevenLabsPro_Music": ElevenLabsPro_Music,
+    "ElevenLabsPro_MusicPlan": ElevenLabsPro_MusicPlan,
     "ElevenLabsPro_AccountInfo": ElevenLabsPro_AccountInfo,
     # New utility nodes (v2.1)
     "ElevenLabsPro_VoiceTagInserter": ElevenLabsPro_VoiceTagInserter,
@@ -1997,6 +2446,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ElevenLabsPro_GetVoiceByName": "ElevenLabs Pro - Get Voice By Name",
     "ElevenLabsPro_VoiceClone": "ElevenLabs Pro - Voice Clone",
     "ElevenLabsPro_VoiceDesign": "ElevenLabs Pro - Voice Design",
+    "ElevenLabsPro_VoiceRemix": "ElevenLabs Pro - Voice Remix",
     "ElevenLabsPro_VoiceCreate": "ElevenLabs Pro - Voice Create",
     "ElevenLabsPro_TTS": "ElevenLabs Pro - Text to Speech",
     "ElevenLabsPro_TTSTimestamps": "ElevenLabs Pro - TTS with Timestamps",
@@ -2004,8 +2454,11 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ElevenLabsPro_SFX": "ElevenLabs Pro - Sound Effects",
     "ElevenLabsPro_AudioIsolation": "ElevenLabs Pro - Audio Isolation",
     "ElevenLabsPro_STT": "ElevenLabs Pro - Speech to Text",
+    "ElevenLabsPro_ForcedAlignment": "ElevenLabs Pro - Forced Alignment",
     "ElevenLabsPro_Dialogue": "ElevenLabs Pro - Text to Dialogue",
+    "ElevenLabsPro_DialogueTimestamps": "ElevenLabs Pro - Text to Dialogue with Timestamps",
     "ElevenLabsPro_Music": "ElevenLabs Pro - Music Generation",
+    "ElevenLabsPro_MusicPlan": "ElevenLabs Pro - Music Composition Plan",
     "ElevenLabsPro_AccountInfo": "ElevenLabs Pro - Account Info",
     "ElevenLabsPro_VoiceTagInserter": "ElevenLabs Pro - Voice Tag Inserter",
     "ElevenLabsPro_SubtitleExport": "ElevenLabs Pro - Subtitle Export (SRT/VTT)",
