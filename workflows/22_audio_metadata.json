@@ -105,7 +105,7 @@
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 3,
@@ -141,11 +141,11 @@
       "type": "ShowText|pysssss",
       "pos": [
         860,
-        198
+        298
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 4,
@@ -181,11 +181,11 @@
       "type": "ShowText|pysssss",
       "pos": [
         860,
-        336
+        536
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 5,
@@ -221,11 +221,11 @@
       "type": "ShowText|pysssss",
       "pos": [
         860,
-        474
+        774
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 6,
@@ -304,9 +304,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -316,9 +316,9 @@
       "title": "Action",
       "bounding": [
         435,
-        -1,
+        -9,
         370,
-        202
+        210
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -328,9 +328,9 @@
       "title": "Output",
       "bounding": [
         835,
-        -1,
+        -9,
         370,
-        588
+        996
       ],
       "color": "#3F789E",
       "font_size": 24,

@@ -133,7 +133,7 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        446
+        784
       ],
       "size": [
         320,
@@ -183,7 +183,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        246
+        584
       ],
       "size": [
         320,
@@ -222,7 +222,7 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        832
+        1708
       ],
       "size": [
         320,
@@ -272,7 +272,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        432
+        1308
       ],
       "size": [
         320,
@@ -311,7 +311,7 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        1218
+        2832
       ],
       "size": [
         320,
@@ -361,7 +361,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        618
+        2232
       ],
       "size": [
         320,
@@ -400,7 +400,7 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        1604
+        4156
       ],
       "size": [
         320,
@@ -450,7 +450,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        804
+        3356
       ],
       "size": [
         320,
@@ -572,9 +572,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -584,9 +584,9 @@
       "title": "SFX 1",
       "bounding": [
         435,
-        -1,
+        -9,
         770,
-        422
+        430
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -596,9 +596,9 @@
       "title": "SFX 2",
       "bounding": [
         435,
-        185,
+        515,
         770,
-        622
+        630
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -608,9 +608,9 @@
       "title": "SFX 3",
       "bounding": [
         435,
-        371,
+        1239,
         770,
-        822
+        830
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -620,9 +620,9 @@
       "title": "SFX 4",
       "bounding": [
         435,
-        557,
+        2163,
         770,
-        1022
+        1030
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -632,9 +632,9 @@
       "title": "SFX 5",
       "bounding": [
         435,
-        743,
+        3287,
         770,
-        1222
+        1230
       ],
       "color": "#3F789E",
       "font_size": 24,

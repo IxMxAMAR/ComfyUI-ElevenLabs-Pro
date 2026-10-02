@@ -106,7 +106,7 @@
       ],
       "size": [
         320,
-        56
+        136
       ],
       "flags": {},
       "order": 3,
@@ -130,7 +130,7 @@
       "type": "ElevenLabsPro_VoiceDesign",
       "pos": [
         460,
-        470
+        832
       ],
       "size": [
         320,
@@ -187,11 +187,11 @@
       "type": "PreviewAudio",
       "pos": [
         860,
-        166
+        608
       ],
       "size": [
         320,
-        56
+        136
       ],
       "flags": {},
       "order": 5,
@@ -215,7 +215,7 @@
       "type": "ElevenLabsPro_VoiceDesign",
       "pos": [
         460,
-        880
+        1828
       ],
       "size": [
         320,
@@ -272,11 +272,11 @@
       "type": "PreviewAudio",
       "pos": [
         860,
-        272
+        1380
       ],
       "size": [
         320,
-        56
+        136
       ],
       "flags": {},
       "order": 7,
@@ -300,7 +300,7 @@
       "type": "ElevenLabsPro_VoiceCreate",
       "pos": [
         1260,
-        60
+        920
       ],
       "size": [
         320,
@@ -360,11 +360,11 @@
       "type": "ShowText|pysssss",
       "pos": [
         1660,
-        60
+        920
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 9,
@@ -475,9 +475,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -487,9 +487,9 @@
       "title": "Candidate 0",
       "bounding": [
         435,
-        -1,
+        -9,
         770,
-        446
+        454
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -499,9 +499,9 @@
       "title": "Candidate 1",
       "bounding": [
         435,
-        105,
+        539,
         770,
-        750
+        678
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -511,9 +511,9 @@
       "title": "Candidate 2",
       "bounding": [
         435,
-        211,
+        1311,
         770,
-        1054
+        902
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -523,9 +523,9 @@
       "title": "Create",
       "bounding": [
         1235,
-        -1,
+        851,
         770,
-        290
+        298
       ],
       "color": "#3F789E",
       "font_size": 24,

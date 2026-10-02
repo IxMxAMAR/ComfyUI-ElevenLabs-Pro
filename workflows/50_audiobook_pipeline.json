@@ -644,9 +644,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        336
+        344
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -656,9 +656,9 @@
       "title": "TTS Chunks",
       "bounding": [
         435,
-        -1,
+        -9,
         370,
-        2620
+        2628
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -668,9 +668,9 @@
       "title": "Assemble",
       "bounding": [
         835,
-        -1,
+        -9,
         370,
-        314
+        322
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -680,9 +680,9 @@
       "title": "Master",
       "bounding": [
         1235,
-        -1,
+        -9,
         370,
-        198
+        206
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -692,9 +692,9 @@
       "title": "Save",
       "bounding": [
         1635,
-        -1,
+        -9,
         370,
-        222
+        230
       ],
       "color": "#3F789E",
       "font_size": 24,

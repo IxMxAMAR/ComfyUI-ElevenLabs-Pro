@@ -186,7 +186,7 @@
       "type": "ElevenLabsPro_SaveAudio",
       "pos": [
         860,
-        350
+        822
       ],
       "size": [
         320,
@@ -225,11 +225,11 @@
       "type": "ShowText|pysssss",
       "pos": [
         1260,
-        60
+        488
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 6,
@@ -308,9 +308,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        336
+        344
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -320,9 +320,9 @@
       "title": "TTS",
       "bounding": [
         435,
-        -1,
+        -9,
         370,
-        466
+        474
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -332,9 +332,9 @@
       "title": "Subtitles",
       "bounding": [
         835,
-        -1,
+        -9,
         370,
-        326
+        334
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -344,9 +344,9 @@
       "title": "Save",
       "bounding": [
         835,
-        -1,
+        419,
         770,
-        512
+        564
       ],
       "color": "#3F789E",
       "font_size": 24,

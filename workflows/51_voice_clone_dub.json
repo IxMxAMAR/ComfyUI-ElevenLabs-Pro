@@ -42,7 +42,7 @@
       "type": "LoadAudio",
       "pos": [
         60,
-        198
+        242
       ],
       "size": [
         320,
@@ -326,7 +326,7 @@
       ],
       "size": [
         320,
-        88
+        188
       ],
       "flags": {},
       "order": 6,
@@ -362,11 +362,11 @@
       "type": "PreviewAudio",
       "pos": [
         1660,
-        198
+        298
       ],
       "size": [
         320,
-        56
+        136
       ],
       "flags": {},
       "order": 7,
@@ -465,9 +465,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -477,9 +477,9 @@
       "title": "Source",
       "bounding": [
         35,
-        137,
+        173,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -489,9 +489,9 @@
       "title": "Transcribe",
       "bounding": [
         435,
-        -1,
+        -9,
         370,
-        478
+        486
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -501,9 +501,9 @@
       "title": "Clone",
       "bounding": [
         835,
-        -1,
+        -9,
         370,
-        410
+        418
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -513,9 +513,9 @@
       "title": "Dub",
       "bounding": [
         1235,
-        -1,
+        -9,
         370,
-        682
+        690
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -525,9 +525,9 @@
       "title": "Output",
       "bounding": [
         1635,
-        -1,
+        -9,
         370,
-        280
+        468
       ],
       "color": "#3F789E",
       "font_size": 24,

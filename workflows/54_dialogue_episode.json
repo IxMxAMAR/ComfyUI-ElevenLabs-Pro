@@ -95,7 +95,7 @@
       "type": "ElevenLabsPro_Dialogue",
       "pos": [
         460,
-        598
+        642
       ],
       "size": [
         320,
@@ -165,7 +165,7 @@
       "type": "ElevenLabsPro_SFX",
       "pos": [
         460,
-        2184
+        2272
       ],
       "size": [
         320,
@@ -293,7 +293,7 @@
       ],
       "size": [
         320,
-        56
+        136
       ],
       "flags": {},
       "order": 6,
@@ -376,9 +376,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -388,9 +388,9 @@
       "title": "Intro",
       "bounding": [
         435,
-        -1,
+        -9,
         370,
-        574
+        582
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -400,9 +400,9 @@
       "title": "Dialogue",
       "bounding": [
         435,
-        537,
+        573,
         370,
-        1622
+        1630
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -412,9 +412,9 @@
       "title": "Transition",
       "bounding": [
         435,
-        2123,
+        2203,
         370,
-        422
+        430
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -424,9 +424,9 @@
       "title": "Assembly",
       "bounding": [
         835,
-        -1,
+        -9,
         370,
-        314
+        322
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -436,9 +436,9 @@
       "title": "Preview",
       "bounding": [
         1235,
-        -1,
+        -9,
         370,
-        142
+        230
       ],
       "color": "#3F789E",
       "font_size": 24,

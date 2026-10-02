@@ -40,7 +40,7 @@
       "type": "LoadAudio",
       "pos": [
         60,
-        198
+        242
       ],
       "size": [
         320,
@@ -235,9 +235,9 @@
       "title": "Setup",
       "bounding": [
         35,
-        -1,
+        -9,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -247,9 +247,9 @@
       "title": "Raw Audio",
       "bounding": [
         35,
-        137,
+        173,
         370,
-        174
+        182
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -259,9 +259,9 @@
       "title": "Clean",
       "bounding": [
         435,
-        -1,
+        -9,
         370,
-        198
+        206
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -271,9 +271,9 @@
       "title": "Master",
       "bounding": [
         835,
-        -1,
+        -9,
         370,
-        198
+        206
       ],
       "color": "#3F789E",
       "font_size": 24,
@@ -283,9 +283,9 @@
       "title": "Save",
       "bounding": [
         1235,
-        -1,
+        -9,
         370,
-        222
+        230
       ],
       "color": "#3F789E",
       "font_size": 24,
